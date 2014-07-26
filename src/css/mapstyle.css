@@ -1,0 +1,113 @@
+.google-map {
+    width: 800px;
+    height: 500px;
+    background-color: #DBDBDB;
+    background-image: url(/src/img/map-load.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.popup-content input[type=color] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /*border: 1px solid #ccc;*/
+    border:none;
+    border-radius: 3px;
+    display: inline-block;
+    height: 25px;
+    padding: 0px !important;
+    vertical-align: middle;
+    width: 25px;
+}
+
+.popup-content .btn-popup-delete {
+    border: 1px solid #df0909;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: arial, helvetica, sans-serif;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #f62b2b;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f62b2b), to(#d20202));
+    background-image: -webkit-linear-gradient(top, #f62b2b, #d20202);
+    background-image: -moz-linear-gradient(top, #f62b2b, #d20202);
+    background-image: -ms-linear-gradient(top, #f62b2b, #d20202);
+    background-image: -o-linear-gradient(top, #f62b2b, #d20202);
+    background-image: linear-gradient(to bottom, #f62b2b, #d20202);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f62b2b, endColorstr=#d20202);
+}
+
+    .popup-content .btn-popup-delete:hover {
+        border: 1px solid #b30808;
+        background-color: #e40a0a;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#e40a0a), to(#9f0202));
+        background-image: -webkit-linear-gradient(top, #e40a0a, #9f0202);
+        background-image: -moz-linear-gradient(top, #e40a0a, #9f0202);
+        background-image: -ms-linear-gradient(top, #e40a0a, #9f0202);
+        background-image: -o-linear-gradient(top, #e40a0a, #9f0202);
+        background-image: linear-gradient(to bottom, #e40a0a, #9f0202);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#e40a0a, endColorstr=#9f0202);
+    }
+
+.popup-content input[type=text], .popup-content input[type=number], .popup-content select, .popup-content textarea {
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.popup-content textarea {
+    height: 100px;
+    width: 530px;
+}
+
+    .popup-content textarea.richtext-fix {
+        margin-bottom: 35px;
+    }
+
+.popup-content input[type=text], .popup-content input[type=number], .popup-content select {
+    width: 150px;
+}
+
+.popup-content table tr {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.error-icon {
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+
+.fit-bound
+{
+    margin-left: -4px;
+    margin-top: 5px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    width:26px;
+    height:26px;
+    z-index:999;
+    background-image: url(../img/fit-bounds.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor:pointer;
+}
+.fit-bound:hover
+{
+    background-color:#EBEBEB;
+}
+
+/*JQuery simple color picker*/
+html, body { height: 100%; }
+div.color-picker { border-left: 1px solid #000; border-top: 1px solid #000; position: absolute; left: 0px; top: 0px; padding: 0px; }
+div.color-picker ul { list-style: none; padding: 0px; margin: 0px; float: left; }
+div.color-picker ul li { display: block; width: 15px; height: 15px; border-right: 1px solid #000; border-bottom: 1px solid #000; margin: 0px; float: left; cursor: pointer; }

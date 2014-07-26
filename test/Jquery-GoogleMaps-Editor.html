@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JQuery GoogleMaps Editor</title>
+    <link rel="stylesheet" type="text/css" href="../src/css/mapstyle.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../src/jquery.googlemaps.js"></script>
+</head>
+<body>
+    <div class="map-container"></div>
+    <!--<div class="map-container"></div>-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".map-container").GoogleMapEditor();
+            $("#getmapdata").click(function () {
+                $(".map-container").each(function () {
+                    alert($(this).find('input[type="hidden"]').val());
+                });
+            });
+        });
+
+    </script>
+
+    <input type="button" id="getmapdata" name="getmapdata" value="Get Map Data" />
+</body>
+</html>
