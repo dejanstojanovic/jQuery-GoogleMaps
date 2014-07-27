@@ -7,20 +7,26 @@
     <script type="text/javascript" src="../src/jquery.googlemaps.js"></script>
 </head>
 <body>
+    <p>Map editor 1</p>
     <div class="map-container"></div>
-    <!--<div class="map-container"></div>-->
+    <textarea rows="10" cols="100" style="width:100%"></textarea>
+
+    <p>Map editor 2</p>
+    <div class="map-container"></div>
+    <textarea rows="10" cols="100" style="width:100%"></textarea>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".map-container").GoogleMapEditor();
-            $("#getmapdata").click(function () {
-                $(".map-container").each(function () {
-                    alert($(this).find('input[type="hidden"]').val());
-                });
+            $(".map-container").GoogleMapEditor({
+                height:400,
+                richtextEditor:false,
+                dataChange: function (sender, data) {
+                    $(sender.container).next("textarea").val(data);
+                }
             });
         });
 
     </script>
 
-    <input type="button" id="getmapdata" name="getmapdata" value="Get Map Data" />
 </body>
 </html>
