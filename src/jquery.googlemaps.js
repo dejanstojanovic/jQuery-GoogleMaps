@@ -42,9 +42,6 @@ $.fn.GoogleMapEditor = function (options) {
     var popupTemplateMarker = null;
     var popupTemplatePolyline = null;
     var popupTemplatePolygon = null;
-
-    //loadPopupTemplates();
-
     var selector = $(this);
 
     if ((typeof google !== "undefined" && google !== null ? google.maps : void 0) == null) {
@@ -180,8 +177,9 @@ $.fn.GoogleMapEditor = function (options) {
 
     function initializeGoogleMapEditor(container) {
         var map = null;
-        loadPopupTemplates();
-
+        if (settings.editMode) {
+            loadPopupTemplates();
+        }
         map = new google.maps.Map(container, {
             center: new google.maps.LatLng(settings.center.latitude, settings.center.longitude),
             zoom: settings.zoom,
@@ -200,7 +198,6 @@ $.fn.GoogleMapEditor = function (options) {
 
         google.maps.event.addListenerOnce(map, 'idle', function () {
             addFitBoundsButton(map);
-
             if (settings.searchBox) {
                 addSearchBox(map);
             }
@@ -239,64 +236,61 @@ $.fn.GoogleMapEditor = function (options) {
             }
         });
 
-        var drawingManager = new google.maps.drawing.DrawingManager({
-            drawingMode: google.maps.drawing.OverlayType.MARKER,
-            drawingControl: true,
-            polygonOptions: {
-                draggable: settings.editMode,
-                strokeWeight: settings.drawingBorderWidth,
-                strokeColor: settings.drawingBorderColor,
-                fillColor: settings.drawingFillColor
-                //,
-                //fillOpacity: settings.mouseOutOpacity,
-                //strokeWeight: settings.drawingBorderWidth
-            },
-            markerOptions: {
-                draggable: settings.editMode
-                //icon: settings.markerIcon
-            },
-            polylineOptions: {
-                draggable: settings.editMode,
-                strokeWeight: settings.drawingBorderWidth,
-                strokeColor: settings.drawingBorderColor,
-                fillColor: settings.drawingFillColor
-            },
-            circleOptions: {
-                draggable: settings.editMode,
-                strokeWeight: settings.drawingBorderWidth,
-                strokeColor: settings.drawingBorderColor,
-                fillColor: settings.drawingFillColor
-            },
-            rectangleOptions: {
-                draggable: settings.editMode,
-                strokeWeight: settings.drawingBorderWidth,
-                strokeColor: settings.drawingBorderColor,
-                fillColor: settings.drawingFillColor
-            },
-            drawingControlOptions: {
-                position: google.maps.ControlPosition.TOP_CENTER,
-                drawingModes: settings.drawingTools
-            }
-        });
+        if (settings.editMode) {
 
-        google.maps.event.addListener(drawingManager, 'overlaycomplete', function (e) {
-            var location = null;
-            if (settings.singleLocation) {
-                clearLocations(map);
-            }
+            var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.MARKER,
+                drawingControl: true,
+                polygonOptions: {
+                    draggable: settings.editMode,
+                    strokeWeight: settings.drawingBorderWidth,
+                    strokeColor: settings.drawingBorderColor,
+                    fillColor: settings.drawingFillColor
+                    //,
+                    //fillOpacity: settings.mouseOutOpacity,
+                    //strokeWeight: settings.drawingBorderWidth
+                },
+                markerOptions: {
+                    draggable: settings.editMode
+                    //icon: settings.markerIcon
+                },
+                polylineOptions: {
+                    draggable: settings.editMode,
+                    strokeWeight: settings.drawingBorderWidth,
+                    strokeColor: settings.drawingBorderColor,
+                    fillColor: settings.drawingFillColor
+                },
+                circleOptions: {
+                    draggable: settings.editMode,
+                    strokeWeight: settings.drawingBorderWidth,
+                    strokeColor: settings.drawingBorderColor,
+                    fillColor: settings.drawingFillColor
+                },
+                rectangleOptions: {
+                    draggable: settings.editMode,
+                    strokeWeight: settings.drawingBorderWidth,
+                    strokeColor: settings.drawingBorderColor,
+                    fillColor: settings.drawingFillColor
+                },
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: settings.drawingTools
+                }
+            });
 
-            e.overlay.set("draggable", settings.editMode);
-            location = initLocationObject(map, e.overlay, e.type);
-            attachLocationHandlers(map, location, e.type);
-
-            e.overlay.setOptions({ suppressUndo: true });
-
-            attachTransformHandlers(map, e.overlay, e.type);
-            //HERE TRANSOFT CASE
-
-        });
-        drawingManager.setMap(map);
-
+            google.maps.event.addListener(drawingManager, 'overlaycomplete', function (e) {
+                var location = null;
+                if (settings.singleLocation) {
+                    clearLocations(map);
+                }
+                e.overlay.set("draggable", settings.editMode);
+                location = initLocationObject(map, e.overlay, e.type);
+                attachLocationHandlers(map, location, e.type);
+                e.overlay.setOptions({ suppressUndo: true });
+                attachTransformHandlers(map, e.overlay, e.type);
+            });
+            drawingManager.setMap(map);
+        }
     }
 
     function attachTransformHandlers(map, overlay, type) {
@@ -304,7 +298,6 @@ $.fn.GoogleMapEditor = function (options) {
         switch (type) {
             case google.maps.drawing.OverlayType.POLYLINE:
             case google.maps.drawing.OverlayType.POLYGON:
-
                 google.maps.event.addListener(overlay.getPath(), 'set_at', function (index, obj) {
                     updateLocationObject(map, overlay.Location, type, true);
                 });
@@ -323,15 +316,12 @@ $.fn.GoogleMapEditor = function (options) {
                     updateLocationObject(map, overlay.Location, type, true);
                 });
                 break;
-
             case google.maps.drawing.OverlayType.RECTANGLE:
                 google.maps.event.addListener(overlay, 'bounds_changed', function (index, obj) {
                     updateLocationObject(map, overlay.Location, type, true);
                 });
-
                 break;
         }
-
     }
 
     function clearLocations(map) {
@@ -343,7 +333,6 @@ $.fn.GoogleMapEditor = function (options) {
             map.locations = [];
         }
     }
-
 
     function initLocationObject(map, overlay, type) {
         var maplocation;
@@ -379,15 +368,10 @@ $.fn.GoogleMapEditor = function (options) {
 
         maplocation.Overlay = overlay;
         overlay.Location = maplocation;
-
         if (map.locations == null) {
             map.locations = [];
         }
-
         map.locations.push(maplocation);
-
-        //alert(map.locations.length);
-
         saveToJson(map);
         return maplocation;
     }
@@ -488,9 +472,11 @@ $.fn.GoogleMapEditor = function (options) {
 
     function saveToJson(map) {
         var result = null;
-        result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
-        if (settings.dataChange != null) {
-            settings.dataChange(map, result);
+        if (settings.editMode) {
+            result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
+            if (settings.dataChange != null) {
+                settings.dataChange(map, result);
+            }
         }
         return result;
     }
@@ -562,9 +548,13 @@ $.fn.GoogleMapEditor = function (options) {
                     }
                     break;
             }
-            if (contentObj != null) {
+            if (contentObj != null && settings.editMode) {
                 map.infoWindow.setContent(contentObj.html());
             }
+            else {
+                map.infoWindow.setContent(location.Message);
+            }
+
             google.maps.event.addListener(map.infoWindow, 'domready', function () {
                 $(map.container).find('.popup-content textarea').val(map.activeLocation.Message);
                 $(map.container).find('.popup-content input[name="locationLat"]').val(position.lat());
@@ -685,23 +675,19 @@ $.fn.GoogleMapEditor = function (options) {
                 }
                 else {
                     location.Radius = location.Overlay.getRadius();
-
                 }
-
                 break;
             case google.maps.drawing.OverlayType.POLYLINE:
                 for (i = 0; i < location.Overlay.getPath().length; i++) {
                     coordinates.push(new Coordinate(location.Overlay.getPath().getAt(i).lat(), location.Overlay.getPath().getAt(i).lng()))
                 }
                 location.Coordinates = coordinates;
-
                 break;
             case google.maps.drawing.OverlayType.POLYGON:
                 for (i = 0; i < location.Overlay.getPath().length; i++) {
                     coordinates.push(new Coordinate(location.Overlay.getPath().getAt(i).lat(), location.Overlay.getPath().getAt(i).lng()))
                 }
                 location.Coordinates = coordinates;
-
                 break;
             case google.maps.drawing.OverlayType.RECTANGLE:
                 coordinates.push(new Coordinate(location.Overlay.getBounds().getNorthEast().lat(), location.Overlay.getBounds().getNorthEast().lng()));
@@ -729,13 +715,11 @@ $.fn.GoogleMapEditor = function (options) {
                 map.activeLocation = null;
                 saveToJson(map);
                 map.infoWindow.close();
-
             }
         });
     }
 
     function isIE() {
-
         var ua = window.navigator.userAgent;
         var msie = ua.indexOf("MSIE ");
 

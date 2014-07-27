@@ -1,31 +1,23 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>JQuery GoogleMaps Editor Multiple Instances</title>
+    <title>JQuery GoogleMaps Viewer</title>
     <link rel="stylesheet" type="text/css" href="../src/css/mapstyle.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="../src/jquery.googlemaps.js"></script>
 </head>
 <body>
-    <p>Map editor 1</p>
+    <p>Map viewer</p>
     <div class="map-container"></div>
-    <textarea rows="10" cols="100" style="width:100%"></textarea>
-
-    <p>Map editor 2</p>
-    <div class="map-container"></div>
-    <textarea rows="10" cols="100" style="width:100%"></textarea>
 
     <script type="text/javascript">
         $(document).ready(function () {
             $(".map-container").GoogleMapEditor({
                 height:400,
-                richtextEditor:false,
-                dataChange: function (sender, data) {
-                    $(sender.container).next("textarea").val(data);
-                }
+                editMode:false,
+                locations:[{"Coordinates":[{"Latitude":25.056989169783144,"Longitude":55.18715858459473}],"Radius":0,"LocationType":"marker","Icon":"../src/img/pin/pin-azure.png","Message":"Message from Pin 1","Tag":null},{"Coordinates":[{"Latitude":25.050768779668633,"Longitude":55.212907791137695}],"Radius":0,"LocationType":"marker","Icon":null,"Message":"Message from Pin 2","BorderColor":"#ff0000","BorderWeight":2,"FillColor":"#ffff00","Tag":null}]
             });
         });
-
     </script>
 
 </body>
