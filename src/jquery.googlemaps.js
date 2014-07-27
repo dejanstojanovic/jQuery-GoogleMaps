@@ -3,6 +3,9 @@
 $.fn.GoogleMapEditor = function (options) {
     var defaults = {
         editMode: true,
+        editTemplatesPath: "../src/html/",
+        markerPinsPath: "../src/img/pin/",
+        markerPinFiles: ["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"],
         drawingBorderColor: "#ff0000",
         drawingBorderWidth: 2,
         drawingFillColor: "#ffff00",
@@ -22,7 +25,9 @@ $.fn.GoogleMapEditor = function (options) {
         panControl: true,
         scaleControl: true,
         streetViewControl: true,
-        locations: []
+        scrollWheel: false,
+        locations: [],
+        dataChange: null
     }
     var settings = $.extend({}, defaults, options);
     var tinyMceUrl = "//tinymce.cachefly.net/4.0/tinymce.min.js";
@@ -53,7 +58,7 @@ $.fn.GoogleMapEditor = function (options) {
                 if ($(container).height() <= 0) {
                     $(container).height(settings.height);
                 }
-               return initializeGoogleMapEditor(container);
+                initializeGoogleMapEditor(container);
             });
         };
     }
@@ -125,10 +130,8 @@ $.fn.GoogleMapEditor = function (options) {
 
     function loadPopupTemplates() {
 
-        return;
-
         $.ajax({
-            url: "/Umbraco/Api/Resource/GetEditForm?filename=popup-template-circle.html&richtext=" + settings.richtextEditor,
+            url: settings.editTemplatesPath + "popup-template-circle.html",
             method: "GET",
             dataType: "text html",
             success: function (data) {
@@ -136,9 +139,9 @@ $.fn.GoogleMapEditor = function (options) {
             }
         });
 
-        
+
         $.ajax({
-            url: "/Umbraco/Api/Resource/GetEditForm?filename=popup-template-rectangle.html&richtext=" + settings.richtextEditor,
+            url: settings.editTemplatesPath + "popup-template-rectangle.html",
             method: "GET",
             dataType: "text html",
             success: function (data) {
@@ -147,7 +150,7 @@ $.fn.GoogleMapEditor = function (options) {
         });
 
         $.ajax({
-            url: "/Umbraco/Api/Resource/GetMarkerEditForm?filename=popup-template-marker.html&richtext=" + settings.richtextEditor,
+            url: settings.editTemplatesPath + "popup-template-marker.html",
             method: "GET",
             dataType: "text html",
             success: function (data) {
@@ -156,7 +159,7 @@ $.fn.GoogleMapEditor = function (options) {
         });
 
         $.ajax({
-            url: "/Umbraco/Api/Resource/GetEditForm?filename=popup-template-polyline.html&richtext=" + settings.richtextEditor,
+            url: settings.editTemplatesPath + "popup-template-polyline.html",
             method: "GET",
             dataType: "text html",
             success: function (data) {
@@ -165,7 +168,7 @@ $.fn.GoogleMapEditor = function (options) {
         });
 
         $.ajax({
-            url: "/Umbraco/Api/Resource/GetEditForm?filename=popup-template-polygon.html&richtext=" + settings.richtextEditor,
+            url: settings.editTemplatesPath + "popup-template-polygon.html",
             method: "GET",
             dataType: "text html",
             success: function (data) {
@@ -177,14 +180,6 @@ $.fn.GoogleMapEditor = function (options) {
 
     function initializeGoogleMapEditor(container) {
         var map = null;
-        $(container).empty();
-      
-        /*
-        if ($(container).next('input[type="hidden"]').val() != "") {
-            settings.mapSettings = $.parseJSON($(container).next('input[type="hidden"]').val());
-        }
-        */
-
         loadPopupTemplates();
 
         map = new google.maps.Map(container, {
@@ -197,13 +192,13 @@ $.fn.GoogleMapEditor = function (options) {
             infoWindow: null
         });
 
+        map.setOptions({ scrollwheel: settings.scrollWheel });
         map.container = container;
-        map.locations = settings.locations;
+        map.locations = settings.locations.slice(0);
+        //map.locations = [];
         map.id = createUUID();
 
         google.maps.event.addListenerOnce(map, 'idle', function () {
-
-            $(map.container).append("<input type=\"hidden\" />");
             addFitBoundsButton(map);
 
             if (settings.searchBox) {
@@ -390,6 +385,9 @@ $.fn.GoogleMapEditor = function (options) {
         }
 
         map.locations.push(maplocation);
+
+        //alert(map.locations.length);
+
         saveToJson(map);
         return maplocation;
     }
@@ -490,18 +488,10 @@ $.fn.GoogleMapEditor = function (options) {
 
     function saveToJson(map) {
         var result = null;
-        //if (map.locations.length > 0) {
-        var mapObject = new function () {
-            this.Zoom = map.getZoom();
-            this.Locations = map.locations;
-            this.SingleLocation = settings.singleLocation;
-            this.Center = new function () {
-                this.Latitude = map.getCenter().lat();
-                this.Longitude = map.getCenter().lng();
-            };
+        result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
+        if (settings.dataChange != null) {
+            settings.dataChange(map, result);
         }
-        result = JSON.stringify(mapObject, ["Zoom", "Width", "Height", "SingleLocation", "Center", "Locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
-        $(map.container).find('input[type="hidden"]').val(result);
         return result;
     }
 
@@ -510,11 +500,7 @@ $.fn.GoogleMapEditor = function (options) {
         google.maps.event.addListener(location.Overlay, 'dragend', function (event) {
             updateLocationObject(map, this.Location, type, true);
         });
-
-
-
         google.maps.event.addListener(location.Overlay, 'click', function () {
-
             if (!arePopupTemplatesLoaded()) {
                 return;
             }
@@ -525,44 +511,59 @@ $.fn.GoogleMapEditor = function (options) {
             for (i = 0; i < map.locations.length; i++) {
                 map.locations[i].Overlay.set("editable", false);
             }
-
             location.Overlay.set("editable", true);
             map.infoWindow = new google.maps.InfoWindow();
             map.activeLocation = location;
-
             google.maps.event.addListener(map.infoWindow, 'closeclick', function () {
                 if (typeof map.activeLocation != 'undefined' && map.activeLocation != null) {
                     $(".color-picker").remove();
                 }
-                //Set options from tooltip form
                 updateLocationObject(map, map.activeLocation, type, false);
             });
 
-
-
-
             var position = null;
+            var contentObj = null;
             switch (type) {
                 case google.maps.drawing.OverlayType.MARKER:
                     position = location.Overlay.position;
-                    map.infoWindow.setContent(popupTemplateMarker);
+                    contentObj = $('<div>').append(popupTemplateMarker);
+                    if (!settings.richtextEditor) {
+                        contentObj.find("textarea").removeClass("richtext-fix");
+                    }
                     break;
                 case google.maps.drawing.OverlayType.CIRCLE:
                     position = location.Overlay.getCenter();
-                    map.infoWindow.setContent(popupTemplateCircle);
+                    contentObj = $('<div>').append(popupTemplateCircle);
+                    if (!settings.richtextEditor) {
+                        contentObj.find("textarea").removeClass("richtext-fix");
+                    }
                     break;
                 case google.maps.drawing.OverlayType.POLYLINE:
                     position = getPolyLineCenter(location.Overlay);
-                    map.infoWindow.setContent(popupTemplatePolyline);
+                    contentObj = $('<div>').append(popupTemplatePolyline);
+                    if (!settings.richtextEditor) {
+                        contentObj.find("textarea").removeClass("richtext-fix");
+                    }
+
                     break;
                 case google.maps.drawing.OverlayType.POLYGON:
                     position = getPolygonCenter(location.Overlay);
-                    map.infoWindow.setContent(popupTemplatePolygon);
+                    contentObj = $('<div>').append(popupTemplatePolygon);
+                    if (!settings.richtextEditor) {
+                        contentObj.find("textarea").removeClass("richtext-fix");
+                    }
+
                     break;
                 case google.maps.drawing.OverlayType.RECTANGLE:
                     position = location.Overlay.getBounds().getCenter();
-                    map.infoWindow.setContent(popupTemplateRectangle);
+                    contentObj = $('<div>').append(popupTemplateRectangle);
+                    if (!settings.richtextEditor) {
+                        contentObj.find("textarea").removeClass("richtext-fix");
+                    }
                     break;
+            }
+            if (contentObj != null) {
+                map.infoWindow.setContent(contentObj.html());
             }
             google.maps.event.addListener(map.infoWindow, 'domready', function () {
                 $(map.container).find('.popup-content textarea').val(map.activeLocation.Message);
@@ -572,7 +573,23 @@ $.fn.GoogleMapEditor = function (options) {
                 $(map.container).find('.popup-content input[name="centerLng"]').val(position.lng());
                 $(map.container).find('.popup-content input[name="borderWidth"]').val(location.BorderWeight);
                 $(map.container).find('.popup-content input[name="radius"]').val(location.Radius);
-                $(map.container).find('.popup-content select[name="icon"] option[value="' + location.Icon + '"]').prop('selected', true);
+
+                var markerIconsList = $(map.container).find('.popup-content select[name="icon"]');
+
+                if (markerIconsList.length > 0 && settings.markerPinFiles.length > 0) {
+                    for (i = 0; i < settings.markerPinFiles.length; i++) {
+                        markerIconsList.append($('<option>', {
+                            value: settings.markerPinsPath + settings.markerPinFiles[i],
+                            text: settings.markerPinFiles[i]
+                        }));
+                    }
+                    markerIconsList.find('option[value="' + location.Icon + '"]').prop('selected', true);
+                }
+                else {
+                    markerIconsList.parent().parent().remove();
+                }
+
+                
 
                 var borderColorInput = $(map.container).find('.popup-content input[name="strokeColor"]');
                 var fillColorInput = $(map.container).find('.popup-content input[name="fillColor"]');
