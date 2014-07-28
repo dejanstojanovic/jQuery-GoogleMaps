@@ -23,4 +23,9 @@ For start checkout the following JSFiddler sample to see how to use it.
 ###What are options for plugin
 There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
 The following is the list of options exposed in plugin initializing.
-* **editMode** - Determines whether map and locations on it will be editable or not. Besically it is a switch between editor and viewer. Default value is **true**
+* **editMode** - Determines whether map and locations on it will be editable or not. Besically it is a switch between editor and viewer. Default value is _true_
+* **editTemplatesPath** - Folder URL where html temple files for location editiong are stored. Default value is _../src/html/_
+* **markerPinsPath** - Folder URL where marker pin images are stored. Default value is _../src/img/pin/_
+* **markerPinFiles** - Files in marker pins folder which will be used for editing. Value _markerPinsPath_ will be concatenated to a filename to display it on the map. Default value is _["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"]_
+
+> _Complete list of options with its description will be added to this file_
