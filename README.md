@@ -8,6 +8,7 @@ The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a J
 ###How to add to a page
 Plugin will pull and refernce GoogleMaps API automatically by itself based on options you used when you initialized plugin. All you need to do is to reference JQuery library, plugin library and plugin stylesheet if you are going to use it for map editing.
 > In case you are using plugin only for displaing the data it is not required to reference plugin css file.
+
 ```html
 <link rel="stylesheet" type="text/css" href="../src/css/mapstyle.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
