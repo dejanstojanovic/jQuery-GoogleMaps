@@ -1,4 +1,12 @@
-﻿/* EDITOR */
+﻿/*
+ * jQuery Plugin: JQuery GoogleMaps
+ * https://github.com/dejanstojanovic/JQuery-GoogleMaps
+ * Version 1.0
+ *
+ * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
+ *
+ * Released under the MIT license
+ */
 
 $.fn.GoogleMapEditor = function (options) {
     var defaults = {
@@ -802,8 +810,6 @@ $.fn.GoogleMapEditor = function (options) {
         this.Latitude = latitude;
         this.Longitude = longitude;
     }
-
-    /* OBJECT DEFINITIONS END*/
 }
 
 /*
