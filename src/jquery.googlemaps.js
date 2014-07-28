@@ -486,8 +486,9 @@ $.fn.GoogleMapEditor = function (options) {
         google.maps.event.addListener(location.Overlay, 'dragend', function (event) {
             updateLocationObject(map, this.Location, type, true);
         });
+
         google.maps.event.addListener(location.Overlay, 'click', function () {
-            if (!arePopupTemplatesLoaded()) {
+            if (!arePopupTemplatesLoaded() && settings.editMode) {
                 return;
             }
             if (map.infoWindow != null) {
@@ -497,7 +498,7 @@ $.fn.GoogleMapEditor = function (options) {
             for (i = 0; i < map.locations.length; i++) {
                 map.locations[i].Overlay.set("editable", false);
             }
-            location.Overlay.set("editable", true);
+            location.Overlay.set("editable", settings.editMode);
             map.infoWindow = new google.maps.InfoWindow();
             map.activeLocation = location;
             google.maps.event.addListener(map.infoWindow, 'closeclick', function () {
@@ -552,9 +553,8 @@ $.fn.GoogleMapEditor = function (options) {
                 map.infoWindow.setContent(contentObj.html());
             }
             else {
-                map.infoWindow.setContent(location.Message);
+                map.infoWindow.setContent($("<div/>").append($("<div/>", { class: "popup-message" }).html(location.Message)).html());
             }
-
             google.maps.event.addListener(map.infoWindow, 'domready', function () {
                 $(map.container).find('.popup-content textarea').val(map.activeLocation.Message);
                 $(map.container).find('.popup-content input[name="locationLat"]').val(position.lat());
@@ -563,9 +563,7 @@ $.fn.GoogleMapEditor = function (options) {
                 $(map.container).find('.popup-content input[name="centerLng"]').val(position.lng());
                 $(map.container).find('.popup-content input[name="borderWidth"]').val(location.BorderWeight);
                 $(map.container).find('.popup-content input[name="radius"]').val(location.Radius);
-
                 var markerIconsList = $(map.container).find('.popup-content select[name="icon"]');
-
                 if (markerIconsList.length > 0 && settings.markerPinFiles.length > 0) {
                     for (i = 0; i < settings.markerPinFiles.length; i++) {
                         markerIconsList.append($('<option>', {
@@ -578,9 +576,6 @@ $.fn.GoogleMapEditor = function (options) {
                 else {
                     markerIconsList.parent().parent().remove();
                 }
-
-                
-
                 var borderColorInput = $(map.container).find('.popup-content input[name="strokeColor"]');
                 var fillColorInput = $(map.container).find('.popup-content input[name="fillColor"]');
                 var borderColorInputPicker = $(map.container).find('.popup-content input[name="strokeColorPicker"]');
@@ -615,7 +610,6 @@ $.fn.GoogleMapEditor = function (options) {
                         borderColorInputPicker.val($(this).val());
                     });
                 }
-
                 if (settings.richtextEditor) {
                     intTinyMce();
                 }
@@ -638,11 +632,9 @@ $.fn.GoogleMapEditor = function (options) {
                 tinyMCE.triggerSave();
             }
             location.Message = $(map.container).find('.popup-content textarea').val();
-
             location.BorderColor = $('.popup-content input[name="strokeColor"]').val();
             location.FillColor = $('.popup-content input[name="fillColor"]').val();
             location.BorderWeight = $('.popup-content input[name="borderWidth"]').val();
-
             if (type != google.maps.drawing.OverlayType.MARKER) {
                 location.Overlay.setOptions({
                     strokeColor: location.BorderColor,
@@ -659,11 +651,9 @@ $.fn.GoogleMapEditor = function (options) {
             case google.maps.drawing.OverlayType.MARKER:
                 location.Coordinates.length = 0;
                 location.Coordinates.push(new Coordinate(location.Overlay.getPosition().lat(), location.Overlay.getPosition().lng()));
-
                 if ($('select[name="icon"]').length > 0) {
                     location.Icon = $('select[name="icon"]').val();
                 }
-
                 location.Overlay.setIcon(location.Icon);
                 break;
             case google.maps.drawing.OverlayType.CIRCLE:
@@ -695,7 +685,6 @@ $.fn.GoogleMapEditor = function (options) {
                 location.Coordinates = coordinates;
                 break;
         }
-
         if (map.activeLocation != null && showBallonInfo) {
 
             if (map.infoWindow != null) {
