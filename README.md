@@ -35,4 +35,4 @@ Yes, this plugin provides you adding location popup messages in a richtext. Plug
 * [TinyMce](http://www.tinymce.com/)
 * [Simple Color Picker](https://github.com/rachel-carvalho/simple-color-picker)
 
-TinyMce is dynamically loaded by plugin itself based on options you set when you initialize plugin. Simple color picker plugin is included in this plugin library js file and it is used in edit mode for color picking for browsers which do not support [HTML5 color input](http://www.w3schools.com/html/html5_form_input_types.asp)
+TinyMce is dynamically loaded by plugin itself based on options you set when you initialize plugin. Simple color picker plugin is included in this plugin library js file and it is used in edit mode for color picking for browsers which do not support [HTML5 color input](http://www.w3schools.com/html/html5_form_input_types.asp).
