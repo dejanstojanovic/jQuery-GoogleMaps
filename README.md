@@ -19,3 +19,8 @@ For start checkout the following JSFiddler sample to see how to use it.
 * [JQuery GoogleMaps Editor](http://jsfiddle.net/dejanstojanovic/7Wvww/)
 * [JQuery GoogleMaps Editor With Data Loading](http://jsfiddle.net/dejanstojanovic/Ze3N4/)
 * [JQuery GoogleMaps Viewer With Data Loading](http://jsfiddle.net/dejanstojanovic/aP9De/)
+
+###What are options for plugin
+There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
+The following is the list of options exposed in plugin initializing.
+* **editMode** - Determines whether map and locations on it will be editable or not. Besically it is a switch between editor and viewer. Default value is **true**
