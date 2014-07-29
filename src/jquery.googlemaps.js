@@ -7,7 +7,7 @@
  *
  * Released under the MIT license
  */
-
+ 
 $.fn.GoogleMapEditor = function (options) {
     var defaults = {
         editMode: true,
@@ -396,7 +396,7 @@ $.fn.GoogleMapEditor = function (options) {
                     Location: location
                 });
                 if (location.Icon != null && location.Icon != "") {
-                    marker.setIcon(new google.maps.MarkerImage(location.Icon));
+                    marker.setIcon(new google.maps.MarkerImage(settings.markerPinsPath + location.Icon));
                 }
 
                 location.Overlay = marker;
@@ -660,9 +660,9 @@ $.fn.GoogleMapEditor = function (options) {
                 location.Coordinates.length = 0;
                 location.Coordinates.push(new Coordinate(location.Overlay.getPosition().lat(), location.Overlay.getPosition().lng()));
                 if ($('select[name="icon"]').length > 0) {
-                    location.Icon = $('select[name="icon"]').val();
+                    location.Icon = $('select[name="icon"] :selected').text();
                 }
-                location.Overlay.setIcon(location.Icon);
+                location.Overlay.setIcon(settings.markerPinsPath + location.Icon);
                 break;
             case google.maps.drawing.OverlayType.CIRCLE:
                 location.Coordinates.length = 0;
