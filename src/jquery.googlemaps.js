@@ -660,9 +660,17 @@ $.fn.GoogleMapEditor = function (options) {
                 location.Coordinates.length = 0;
                 location.Coordinates.push(new Coordinate(location.Overlay.getPosition().lat(), location.Overlay.getPosition().lng()));
                 if ($('select[name="icon"]').length > 0) {
-                    location.Icon = $('select[name="icon"] :selected').text();
+                    var iconFile = $('select[name="icon"] :selected').text();
+                    if (iconFile == "default") {
+                        location.Icon = null;
+                        location.Overlay.setIcon(null);
+                    }
+                    else {
+                        location.Icon = iconFile;
+                        location.Overlay.setIcon(settings.markerPinsPath + location.Icon);
+                    }
                 }
-                location.Overlay.setIcon(settings.markerPinsPath + location.Icon);
+                
                 break;
             case google.maps.drawing.OverlayType.CIRCLE:
                 location.Coordinates.length = 0;
