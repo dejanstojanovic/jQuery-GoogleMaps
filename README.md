@@ -7,7 +7,7 @@ The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a J
 
 ###How to add to a page
 Plugin will pull and refernce GoogleMaps API automatically by itself based on options you used when you initialized plugin. All you need to do is to reference JQuery library, plugin library and plugin stylesheet (if you are going to use it for map editing).
-> In case you are using plugin only for displaing the data it is not required to reference plugin css file.
+> In case you are using plugin only for displaying the data it is not required to reference plugin css file.
 
 ```html
 <link rel="stylesheet" type="text/css" href="../src/css/mapstyle.css" />
@@ -15,10 +15,10 @@ Plugin will pull and refernce GoogleMaps API automatically by itself based on op
 <script type="text/javascript" src="../src/jquery.googlemaps.js"></script>
 ```
 ###How to use it
-For start checkout the following JSFiddler sample to see how to use it.
-* [JQuery GoogleMaps Editor](http://jsfiddle.net/dejanstojanovic/7Wvww/)
-* [JQuery GoogleMaps Editor With Data Loading](http://jsfiddle.net/dejanstojanovic/Ze3N4/)
-* [JQuery GoogleMaps Viewer With Data Loading](http://jsfiddle.net/dejanstojanovic/aP9De/)
+For start checkout the following Plunker sample to see how to use it.
+* [JQuery GoogleMaps Editor](http://embed.plnkr.co/uF61SQ1xzbt7KHMpGkvY/preview)
+* [JQuery GoogleMaps Editor With Data Loading](http://embed.plnkr.co/nWfvbi/preview)
+* [JQuery GoogleMaps Viewer With Data Loading](http://embed.plnkr.co/3a2otxiOS08ecDQIqZiZ/preview)
 
 ###What are options for plugin
 There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
