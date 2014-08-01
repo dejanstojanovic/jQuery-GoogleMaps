@@ -481,7 +481,7 @@ $.fn.GoogleMapEditor = function (options) {
     function saveToJson(map) {
         var result = null;
         if (settings.editMode) {
-            result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
+            result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
             if (settings.dataChange != null) {
                 settings.dataChange(map, result);
             }
@@ -493,6 +493,25 @@ $.fn.GoogleMapEditor = function (options) {
     function attachLocationHandlers(map, location, type) {
         google.maps.event.addListener(location.Overlay, 'dragend', function (event) {
             updateLocationObject(map, this.Location, type, true);
+        });
+
+        google.maps.event.addListener(location.Overlay, 'mouseover', function () {
+            if (type == google.maps.drawing.OverlayType.MARKER) {
+                if (location.HoverIcon && location.HoverIcon != 'none' && location.HoverIcon != null && location.HoverIcon != "") {
+                    location.Overlay.setIcon(settings.markerPinsPath + location.HoverIcon);
+                }
+            }
+        });
+
+        google.maps.event.addListener(location.Overlay, 'mouseout', function () {
+            if (type == google.maps.drawing.OverlayType.MARKER) {
+                if (location.Icon != "default" && location.Icon != null && location.Icon != "") {
+                    location.Overlay.setIcon(settings.markerPinsPath + location.Icon);
+                }
+                else {
+                    location.Overlay.setIcon(null);
+                }
+            }
         });
 
         google.maps.event.addListener(location.Overlay, 'click', function () {
@@ -579,11 +598,34 @@ $.fn.GoogleMapEditor = function (options) {
                             text: settings.markerPinFiles[i]
                         }));
                     }
-                    markerIconsList.find('option[value="' + location.Icon + '"]').prop('selected', true);
+                    markerIconsList.find('option').each(function () {
+                        if ($(this).text() == location.Icon) {
+                            $(this).prop('selected', true);
+                        }
+                    });
                 }
                 else {
                     markerIconsList.parent().parent().remove();
                 }
+
+                var markerHoverIconsList = $(map.container).find('.popup-content select[name="hover-icon"]');
+                if (markerHoverIconsList.length > 0 && settings.markerPinFiles.length > 0) {
+                    for (i = 0; i < settings.markerPinFiles.length; i++) {
+                        markerHoverIconsList.append($('<option>', {
+                            value: settings.markerPinsPath + settings.markerPinFiles[i],
+                            text: settings.markerPinFiles[i]
+                        }));
+                    }
+                    markerHoverIconsList.find('option').each(function () {
+                        if ($(this).text() == location.HoverIcon) {
+                            $(this).prop('selected', true);
+                        }
+                    });
+                }
+                else {
+                    markerHoverIconsList.parent().parent().remove();
+                }
+
                 var borderColorInput = $(map.container).find('.popup-content input[name="strokeColor"]');
                 var fillColorInput = $(map.container).find('.popup-content input[name="fillColor"]');
                 var borderColorInputPicker = $(map.container).find('.popup-content input[name="strokeColorPicker"]');
@@ -668,6 +710,14 @@ $.fn.GoogleMapEditor = function (options) {
                     else {
                         location.Icon = iconFile;
                         location.Overlay.setIcon(settings.markerPinsPath + location.Icon);
+                    }
+
+                    var hoverIconFile = $('select[name="hover-icon"] :selected').text();
+                    if (iconFile == "none") {
+                        location.HoverIcon = null;
+                    }
+                    else {
+                        location.HoverIcon = hoverIconFile;
                     }
                 }
                 
