@@ -1,0 +1,35 @@
+{
+    "name": "color",
+    "title": "jQuery Color",
+    "description": "JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages.",
+    "keywords": [
+        "GoogleMaps",
+        "Editor",
+		"Viewer"
+    ],
+    "version": "1.0",
+    "author": {
+        "name": "Dejan Stojanovic",
+        "url": "https://github.com/dejanstojanovic/JQuery-GoogleMaps"
+    },
+    "maintainers": [
+        {
+            "name": "Dejan Stojanovic",
+            "email": "d.stojanovic@hotmail.com",
+            "url": "http://dejanstojanovic.net"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/dejanstojanovic/JQuery-GoogleMaps/blob/master/MIT-LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/dejanstojanovic/JQuery-GoogleMaps/issues",
+    "homepage": "https://github.com/dejanstojanovic/JQuery-GoogleMaps",
+    "docs": "hhttps://github.com/dejanstojanovic/JQuery-GoogleMaps",
+    "download": "http://code.jquery.com/#GoogleMaps",
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}
