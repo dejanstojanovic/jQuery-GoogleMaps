@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Jquery-googlemaps : JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jquery-googlemaps</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/dejanstojanovic/JQuery-GoogleMaps">View on GitHub</a>
+
+          <h1 id="project_title">Jquery-googlemaps</h1>
+          <h2 id="project_tagline">JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/dejanstojanovic/JQuery-GoogleMaps/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/dejanstojanovic/JQuery-GoogleMaps/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="jquery-googlemaps-editor" class="anchor" href="#jquery-googlemaps-editor"><span class="octicon octicon-link"></span></a>JQuery-GoogleMaps-Editor</h1>
+
+<p>JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages</p>
+
+<p>The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a JQuery style. It is basically a wrapper around GoogleMaps API v3 and alow to easily add interactive and customized GoogleMaps for displaying or editing locations whether they are represented as ping or shapes.</p>
+
+<h3>
+<a name="how-to-add-to-a-page" class="anchor" href="#how-to-add-to-a-page"><span class="octicon octicon-link"></span></a>How to add to a page</h3>
+
+<p>Plugin will pull and refernce GoogleMaps API automatically by itself based on options you used when you initialized plugin. All you need to do is to reference JQuery library, plugin library and plugin stylesheet (if you are going to use it for map editing).</p>
+
+<blockquote>
+<p>In case you are using plugin only for displaying the data it is not required to reference plugin css file.</p>
+</blockquote>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"../src/css/mapstyle.css"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"../src/jquery.googlemaps.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<h3>
+<a name="how-to-use-it" class="anchor" href="#how-to-use-it"><span class="octicon octicon-link"></span></a>How to use it</h3>
+
+<p>For start checkout the following Plunker sample to see how to use it.</p>
+
+<ul>
+<li><a href="http://embed.plnkr.co/uF61SQ1xzbt7KHMpGkvY/preview">JQuery GoogleMaps Editor</a></li>
+<li><a href="http://embed.plnkr.co/nWfvbi/preview">JQuery GoogleMaps Editor With Data Loading</a></li>
+<li><a href="http://embed.plnkr.co/3a2otxiOS08ecDQIqZiZ/preview">JQuery GoogleMaps Viewer With Data Loading</a></li>
+</ul><h3>
+<a name="what-are-options-for-plugin" class="anchor" href="#what-are-options-for-plugin"><span class="octicon octicon-link"></span></a>What are options for plugin</h3>
+
+<p>There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
+The following is the list of options exposed in plugin initializing.</p>
+
+<ul>
+<li>
+<strong>editMode</strong> - Determines whether map and locations on it will be editable or not. Besically it is a switch between editor and viewer. Default value is <em>true</em>
+</li>
+<li>
+<strong>editTemplatesPath</strong> - Folder URL where html temple files for location editiong are stored. Default value is <em>../src/html/</em>
+</li>
+<li>
+<strong>markerPinsPath</strong> - Folder URL where marker pin images are stored. Default value is <em>../src/img/pin/</em>
+</li>
+<li>
+<strong>markerPinFiles</strong> - Files in marker pins folder which will be used for editing. Value <em>markerPinsPath</em> will be concatenated to a filename to display it on the map. Default value is <em>["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"]</em>
+</li>
+</ul><blockquote>
+<p><em>Complete list of options with its description will be added to this file</em></p>
+</blockquote>
+
+<h3>
+<a name="there-is-some-richtext-editor-mentioned" class="anchor" href="#there-is-some-richtext-editor-mentioned"><span class="octicon octicon-link"></span></a>There is some richtext editor mentioned</h3>
+
+<p>Yes, this plugin provides you adding location popup messages in a richtext. Plugin relyes on two more additional plugins:</p>
+
+<ul>
+<li><a href="http://www.tinymce.com/">TinyMce</a></li>
+<li><a href="https://github.com/rachel-carvalho/simple-color-picker">Simple Color Picker</a></li>
+</ul><p>TinyMce is dynamically loaded by plugin itself based on options you set when you initialize plugin. Simple color picker plugin is included in this plugin library js file and it is used in edit mode for color picking for browsers which do not support <a href="http://www.w3schools.com/html/html5_form_input_types.asp">HTML5 color input</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jquery-googlemaps maintained by <a href="https://github.com/dejanstojanovic">dejanstojanovic</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
