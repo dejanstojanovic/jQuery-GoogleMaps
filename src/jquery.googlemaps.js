@@ -35,7 +35,11 @@ $.fn.GoogleMapEditor = function (options) {
         streetViewControl: true,
         scrollWheel: false,
         locations: [],
-        dataChange: null
+        dataChange: null,
+        locationClick: null,
+        locationNew: null,
+        LocationDelete: null,
+        LocationMove:null
     }
     var settings = $.extend({}, defaults, options);
     var tinyMceUrl = "//tinymce.cachefly.net/4.0/tinymce.min.js";
@@ -296,6 +300,10 @@ $.fn.GoogleMapEditor = function (options) {
                 attachLocationHandlers(map, location, e.type);
                 e.overlay.setOptions({ suppressUndo: true });
                 attachTransformHandlers(map, e.overlay, e.type);
+
+                if (settings.locationNew != null && typeof (settings.locationNew) == "function") {
+                    settings.locationNew(map, location);
+                }
             });
             drawingManager.setMap(map);
         }
@@ -482,7 +490,7 @@ $.fn.GoogleMapEditor = function (options) {
         var result = null;
         if (settings.editMode) {
             result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
-            if (settings.dataChange != null) {
+            if (settings.dataChange != null && typeof(settings.dataChange) == "function") {
                 settings.dataChange(map, result);
             }
         }
@@ -493,6 +501,9 @@ $.fn.GoogleMapEditor = function (options) {
     function attachLocationHandlers(map, location, type) {
         google.maps.event.addListener(location.Overlay, 'dragend', function (event) {
             updateLocationObject(map, this.Location, type, true);
+            if (settings.locationMove != null && typeof (settings.locationMove) == "function") {
+                settings.locationMove(map, location);
+            }
         });
 
         google.maps.event.addListener(location.Overlay, 'mouseover', function () {
@@ -582,6 +593,7 @@ $.fn.GoogleMapEditor = function (options) {
             else {
                 map.infoWindow.setContent($("<div/>").append($("<div/>", { class: "popup-message" }).html(location.Message)).html());
             }
+
             google.maps.event.addListener(map.infoWindow, 'domready', function () {
                 $(map.container).find('.popup-content textarea').val(map.activeLocation.Message);
                 $(map.container).find('.popup-content input[name="locationLat"]').val(position.lat());
@@ -672,6 +684,11 @@ $.fn.GoogleMapEditor = function (options) {
             else {
                 map.infoWindow.open(map, location.Overlay);
             }
+
+            if (settings.locationClick != null && typeof(settings.locationClick) == "function") {
+                settings.locationClick(map, location);
+            }
+
         });
     }
 
@@ -770,6 +787,9 @@ $.fn.GoogleMapEditor = function (options) {
                 map.activeLocation = null;
                 saveToJson(map);
                 map.infoWindow.close();
+                if (settings.locationDelete != null && typeof (settings.locationDelete) == "function") {
+                    settings.locationDelete(map, location);
+                }
             }
         });
     }
