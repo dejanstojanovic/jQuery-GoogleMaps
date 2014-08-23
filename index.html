@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Jquery-googlemaps : JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages">
+    <meta name="description" content="JQuery-GoogleMaps : JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Jquery-googlemaps</title>
+    <title>JQuery-GoogleMaps</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/dejanstojanovic/JQuery-GoogleMaps">View on GitHub</a>
 
-          <h1 id="project_title">Jquery-googlemaps</h1>
+          <h1 id="project_title">JQuery-GoogleMaps</h1>
           <h2 id="project_tagline">JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages</h2>
 
             <section id="downloads">
@@ -80,8 +80,61 @@ The following is the list of options exposed in plugin initializing.</p>
 <li>
 <strong>markerPinFiles</strong> - Files in marker pins folder which will be used for editing. Value <em>markerPinsPath</em> will be concatenated to a filename to display it on the map. Default value is <em>["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"]</em>
 </li>
+<li>
+<strong>drawingBorderColor</strong> - Drawing border color for map drawing tools. Default value is <em>"#ff0000"</em>
+</li>
+<li>
+<strong>drawingBorderWidth</strong> - Default border width for map drawing tools. Default value is <em>2</em>
+</li>
+<li>
+<strong>drawingFillColor</strong> - Drawing fill color for map drawing tools. Default value is <em>"#ffff00"</em>
+</li>
+<li>
+<strong>zoom</strong> - Initial zoom level of map. default value is <em>13</em>
+</li>
+<li>
+<strong>center</strong> - Initial map center coordinates</li>
+<li>
+<strong>width</strong> - Width of map. Default value is <em>800</em>
+</li>
+<li>
+<strong>height</strong> - Height of map. Default value is <em>400</em>
+</li>
+<li>
+<strong>language</strong> - Language of the map. Default value is <em>"en"</em>
+</li>
+<li>
+<strong>singleLocation</strong> - If true then only ine location is allowed to be added. Before adding map will be cleared. If set to false, multiple locations can be added to map. Default value <em>false</em>
+</li>
+<li>
+<strong>searchBox</strong> - Show or hide search box on map. Default value is <em>true</em>
+</li>
+<li>
+<strong>richtextEditor</strong> - Use TinyMce editor for editiong location messages. Default value is <em>true</em>
+</li>
+<li>
+<strong>drawingTools</strong> - List of drawing tools to be andled on map in edit mode. Default value is <em>["marker", "polyline", "polygon", "circle", "rectangle"]</em>
+</li>
+<li>
+<strong>zoomControl</strong> - Show zoom control on map. Default value is <em>true</em>
+</li>
+<li>
+<strong>panControl</strong> - Show pan control on the map. Default value is <em>true</em>
+</li>
+<li>
+<strong>scaleControl</strong> - Show scale control on the map. Default value is <em>true</em>
+</li>
+<li>
+<strong>streetViewControl</strong> - Show streetview control on the map. Default value is <em>true</em>
+</li>
+<li>
+<strong>scrollWheel</strong> - Use scroll wheel to zoom map. Default value is <em>false</em>
+</li>
+<li>
+<strong>locations</strong> - List of location on the map to be loaded to map when intialzed. Main purpose is to store previously saved map locations. Default value is an empty array <em>[]</em>
+</li>
 </ul><blockquote>
-<p><em>Complete list of options with its description will be added to this file</em></p>
+<p><em>Based on requrements, more plugin settings will be added in future plugin versions</em></p>
 </blockquote>
 
 <h3>
@@ -115,7 +168,7 @@ The following is the list of options exposed in plugin initializing.</p>
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Jquery-googlemaps maintained by <a href="https://github.com/dejanstojanovic">dejanstojanovic</a></p>
+        <p class="copyright">JQuery-GoogleMaps maintained by <a href="https://github.com/dejanstojanovic">dejanstojanovic</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
