@@ -27,8 +27,26 @@ The following is the list of options exposed in plugin initializing.
 * **editTemplatesPath** - Folder URL where html temple files for location editiong are stored. Default value is _../src/html/_
 * **markerPinsPath** - Folder URL where marker pin images are stored. Default value is _../src/img/pin/_
 * **markerPinFiles** - Files in marker pins folder which will be used for editing. Value _markerPinsPath_ will be concatenated to a filename to display it on the map. Default value is _["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"]_
+* **drawingBorderColor** - Drawing border color for map drawing tools. Default value is _"#ff0000"_
+* **drawingBorderWidth** - Default border width for map drawing tools. Default value is _2_
+* **drawingFillColor** - Drawing fill color for map drawing tools. Default value is _"#ffff00"_
+* **zoom** - Initial zoom level of map. default value is _13_
+* **center** - Initial map center coordinates
+* **width** - Width of map. Default value is _800_
+* **height** - Height of map. Default value is _400_
+* **language** - Language of the map. Default value is _"en"_
+* **singleLocation** - If true then only ine location is allowed to be added. Before adding map will be cleared. If set to false, multiple locations can be added to map. Default value _false_
+* **searchBox** - Show or hide search box on map. Default value is _true_
+* **richtextEditor** - Use TinyMce editor for editiong location messages. Default value is _true_
+* **drawingTools** - List of drawing tools to be andled on map in edit mode. Default value is _["marker", "polyline", "polygon", "circle", "rectangle"]_
+* **zoomControl** - Show zoom control on map. Default value is _true_
+* **panControl** - Show pan control on the map. Default value is _true_
+* **scaleControl** - Show scale control on the map. Default value is _true_
+* **streetViewControl** - Show streetview control on the map. Default value is _true_
+* **scrollWheel** - Use scroll wheel to zoom map. Default value is _false_
+* **locations** - List of location on the map to be loaded to map when intialzed. Main purpose is to store previously saved map locations. Default value is an empty array _[]_
 
-> _Complete list of options with its description will be added to this file_
+> _Based on requrements, more plugin settings will be added in future plugin versions_
 
 ###Plugin events
 There are several events implemented so far, but as the requirements grow new will be added. Curently implemented events are the following:
