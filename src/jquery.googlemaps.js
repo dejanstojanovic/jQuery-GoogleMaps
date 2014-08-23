@@ -38,8 +38,8 @@ $.fn.GoogleMapEditor = function (options) {
         dataChange: null,
         locationClick: null,
         locationNew: null,
-        LocationDelete: null,
-        LocationMove:null
+        locationDelete: null,
+        locationMove:null
     }
     var settings = $.extend({}, defaults, options);
     var tinyMceUrl = "//tinymce.cachefly.net/4.0/tinymce.min.js";
