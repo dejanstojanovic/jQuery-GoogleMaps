@@ -30,6 +30,14 @@ The following is the list of options exposed in plugin initializing.
 
 > _Complete list of options with its description will be added to this file_
 
+###Plugin events
+There are several events implemented so far, but as the requirements grow new will be added. Curently implemented events are the following:
+* **dataChange(map, result)** - Raised whenever something is changed on map stage. Returns map instance and map data in JSON format
+* **locationClick(map, location)** - Raised when location on map is clicked. Returns map instance and location which is clicked
+* **locationNew(map, location)** - Raised when location on map is added. Returns map instance and location which is added
+* **locationDelete(map, location)** - Raised when location on map is removed. Returns map instance and location which is removed from map
+* **locationMove(map, location)** - Raised when location on map is moved. Returns map instance and location which is moved
+
 ###There is some richtext editor mentioned
 Yes, this plugin provides you adding location popup messages in a richtext. Plugin relyes on two more additional plugins:
 * [TinyMce](http://www.tinymce.com/)
