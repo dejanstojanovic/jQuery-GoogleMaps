@@ -1,9 +1,17 @@
-JQuery-GoogleMaps-Editor
+JQuery GoogleMaps Editor/View
 =======================
 
 JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages
 
 The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a JQuery style. It is basically a wrapper around GoogleMaps API v3 and alow to easily add interactive and customized GoogleMaps for displaying or editing locations whether they are represented as ping or shapes.
+
+###What can I do with it
+The main purpose of this plugin is to enable easy adding locatins and polygons to a GoogleMap, easy saving of map state and easy loading saved map state with locations again.
+It runs in two modes:
+* Editor mode - Allows you to add locations to a map, move them, delete, edit and organize however you want. It is useful for backend applications where you need to organize your locations easily and easily save your work.
+* Viewer mode - This mode designed is for frontend use. It alows you to load and display previously saved work from editor mode of plugin.
+
+More about how to set modes, check in plugin options list.
 
 ###How to add to a page
 Plugin will pull and refernce GoogleMaps API automatically by itself based on options you used when you initialized plugin. All you need to do is to reference JQuery library, plugin library and plugin stylesheet (if you are going to use it for map editing).
