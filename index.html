@@ -85,6 +85,22 @@ The following is the list of options exposed in plugin initializing.</p>
 </blockquote>
 
 <h3>
+<a name="plugin-events" class="anchor" href="#plugin-events"><span class="octicon octicon-link"></span></a>Plugin events</h3>
+
+<p>There are several events implemented so far, but as the requirements grow new will be added. Curently implemented events are the following:</p>
+
+<ul>
+<li>
+<strong>dataChange(map, result)</strong> - Raised whenever something is changed on map stage. Returns map instance and map data in JSON format</li>
+<li>
+<strong>locationClick(map, location)</strong> - Raised when location on map is clicked. Returns map instance and location which is clicked</li>
+<li>
+<strong>locationNew(map, location)</strong> - Raised when location on map is added. Returns map instance and location which is added</li>
+<li>
+<strong>locationDelete(map, location)</strong> - Raised when location on map is removed. Returns map instance and location which is removed from map</li>
+<li>
+<strong>locationMove(map, location)</strong> - Raised when location on map is moved. Returns map instance and location which is moved</li>
+</ul><h3>
 <a name="there-is-some-richtext-editor-mentioned" class="anchor" href="#there-is-some-richtext-editor-mentioned"><span class="octicon octicon-link"></span></a>There is some richtext editor mentioned</h3>
 
 <p>Yes, this plugin provides you adding location popup messages in a richtext. Plugin relyes on two more additional plugins:</p>
