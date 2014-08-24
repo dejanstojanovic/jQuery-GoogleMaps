@@ -70,3 +70,7 @@ Yes, this plugin provides you adding location popup messages in a richtext. Plug
 * [Simple Color Picker](https://github.com/rachel-carvalho/simple-color-picker)
 
 TinyMce is dynamically loaded by plugin itself based on options you set when you initialize plugin. Simple color picker plugin is included in this plugin library js file and it is used in edit mode for color picking for browsers which do not support [HTML5 color input](http://www.w3schools.com/html/html5_form_input_types.asp).
+
+###The video
+Checkout demo youtube video to see it in action.
+[![ScreenShot](http://dejanstojanovic.net/media/23559/video-demo-700.png)](http://www.youtube.com/watch?v=x0IDStVTHu8)
