@@ -5,9 +5,9 @@
     "keywords": [
         "GoogleMaps",
         "Editor",
-		"Viewer"
+	"Viewer"
     ],
-    "version": "1.1",
+    "version": "1.9",
     "author": {
         "name": "Dejan Stojanovic",
         "url": "https://github.com/dejanstojanovic/JQuery-GoogleMaps"
