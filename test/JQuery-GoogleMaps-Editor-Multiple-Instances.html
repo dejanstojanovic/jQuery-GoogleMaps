@@ -19,7 +19,7 @@
         $(document).ready(function () {
             $(".map-container").GoogleMapEditor({
                 height:400,
-                richtextEditor:false,
+                richtextEditor:true,
                 dataChange: function (sender, data) {
                     $(sender.container).next("textarea").val(data);
                 }
