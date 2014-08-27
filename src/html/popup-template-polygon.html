@@ -3,7 +3,8 @@
     <table border="0">
         <tr>
             <td>Border width</td>
-            <td><input type="number" min="1" name="borderWidth" /></td>
+            <td>
+                <input type="number" min="1" name="borderWidth" /></td>
         </tr>
         <tr>
             <td>Border color</td>
@@ -20,7 +21,12 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" align="right"><input type="button" class="btn-popup-delete" value="Delete this location" /></td>
+            <td colspan="2" align="right">
+                <input type="button" class="btn-popup-save" value="Save" />
+                <input type="button" class="btn-popup-cancel" value="Cancel" />
+                <input type="button" class="btn-popup-delete" value="Delete" />
+            </td>
         </tr>
     </table>
+    <input type="hidden" name="changed" value="false" />
 </div>
