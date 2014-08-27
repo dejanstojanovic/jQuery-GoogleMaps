@@ -1,13 +1,13 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 1.0
+ * Version 1.9
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
  * Released under the MIT license
  */
- 
+
 $.fn.GoogleMapEditor = function (options) {
     var defaults = {
         editMode: true,
@@ -39,7 +39,7 @@ $.fn.GoogleMapEditor = function (options) {
         locationClick: null,
         locationNew: null,
         locationDelete: null,
-        locationMove:null
+        locationMove: null
     }
     var settings = $.extend({}, defaults, options);
     var tinyMceUrl = "//tinymce.cachefly.net/4.0/tinymce.min.js";
@@ -490,13 +490,20 @@ $.fn.GoogleMapEditor = function (options) {
         var result = null;
         if (settings.editMode) {
             result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
-            if (settings.dataChange != null && typeof(settings.dataChange) == "function") {
+            if (settings.dataChange != null && typeof (settings.dataChange) == "function") {
                 settings.dataChange(map, result);
             }
         }
         return result;
     }
 
+
+    function handleMapCloseClick(map, type) {
+        if (typeof map.activeLocation != 'undefined' && map.activeLocation != null) {
+            $(".color-picker").remove();
+        }
+        updateLocationObject(map, map.activeLocation, type, false);
+    }
 
     function attachLocationHandlers(map, location, type) {
         google.maps.event.addListener(location.Overlay, 'dragend', function (event) {
@@ -540,10 +547,7 @@ $.fn.GoogleMapEditor = function (options) {
             map.infoWindow = new google.maps.InfoWindow();
             map.activeLocation = location;
             google.maps.event.addListener(map.infoWindow, 'closeclick', function () {
-                if (typeof map.activeLocation != 'undefined' && map.activeLocation != null) {
-                    $(".color-picker").remove();
-                }
-                updateLocationObject(map, map.activeLocation, type, false);
+                handleMapCloseClick(map, type);
             });
 
             var position = null;
@@ -675,7 +679,7 @@ $.fn.GoogleMapEditor = function (options) {
                 if (settings.richtextEditor) {
                     intTinyMce();
                 }
-                initDeleteButton(map);
+                initPopupButtons(map);
             });
             if (position != null && type != google.maps.drawing.OverlayType.MARKER) {
                 map.infoWindow.setPosition(position);
@@ -685,7 +689,7 @@ $.fn.GoogleMapEditor = function (options) {
                 map.infoWindow.open(map, location.Overlay);
             }
 
-            if (settings.locationClick != null && typeof(settings.locationClick) == "function") {
+            if (settings.locationClick != null && typeof (settings.locationClick) == "function") {
                 settings.locationClick(map, location);
             }
 
@@ -736,8 +740,14 @@ $.fn.GoogleMapEditor = function (options) {
                     else {
                         location.HoverIcon = hoverIconFile;
                     }
+
+                    location.Coordinates[0].Latitude = parseFloat($('.popup-content input[name="locationLat"]').val());
+                    location.Coordinates[0].Longitude = parseFloat($('.popup-content input[name="locationLng"]').val());
+
+                    location.Overlay.setPosition(new google.maps.LatLng(location.Coordinates[0].Latitude, location.Coordinates[0].Longitude));
+
                 }
-                
+
                 break;
             case google.maps.drawing.OverlayType.CIRCLE:
                 location.Coordinates.length = 0;
@@ -777,7 +787,7 @@ $.fn.GoogleMapEditor = function (options) {
         saveToJson(map);
     }
 
-    function initDeleteButton(map) {
+    function initPopupButtons(map) {
         var deleteButton = $(map.container).find(".btn-popup-delete");
         deleteButton.off("click");
         deleteButton.click(function () {
@@ -792,6 +802,31 @@ $.fn.GoogleMapEditor = function (options) {
                 }
             }
         });
+
+        var cancelButton = $(map.container).find(".btn-popup-cancel");
+        cancelButton.off("click");
+        cancelButton.click(function () {
+            if ($('.popup-content [name="changed"]').val() === 'true') {
+                if (confirm("Cancel changes?")) {
+                    map.infoWindow.close();
+                }
+            }
+            else {
+                map.infoWindow.close();
+            }
+        });
+
+        var saveButton = $(map.container).find(".btn-popup-save");
+        saveButton.off("click");
+        saveButton.click(function () {
+            handleMapCloseClick(map, map.activeLocation.LocationType);
+            map.infoWindow.close();
+        });
+
+        $('.popup-content input[type="text"],.popup-content input[type="number"],.popup-content input[type="color"],.popup-content select,.popup-content textarea').change(function () {
+            $('.popup-content input[name="changed"]').val(true);
+        });
+
     }
 
     function isIE() {
