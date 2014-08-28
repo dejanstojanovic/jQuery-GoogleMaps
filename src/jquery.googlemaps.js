@@ -34,6 +34,7 @@ $.fn.GoogleMapEditor = function (options) {
         scaleControl: true,
         streetViewControl: true,
         scrollWheel: false,
+        style:null,
         locations: [],
         dataChange: null,
         locationClick: null,
@@ -199,7 +200,8 @@ $.fn.GoogleMapEditor = function (options) {
             panControl: settings.panControl,
             scaleControl: settings.scaleControl,
             streetViewControl: settings.streetViewControl,
-            infoWindow: null
+            infoWindow: null,
+            styles: settings.style
         });
 
         map.setOptions({ scrollwheel: settings.scrollWheel });
