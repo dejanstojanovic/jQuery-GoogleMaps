@@ -26,6 +26,7 @@ Plugin will pull and refernce GoogleMaps API automatically by itself based on op
 For start checkout the following Plunker sample to see how to use it.
 * [JQuery GoogleMaps Editor](http://embed.plnkr.co/uF61SQ1xzbt7KHMpGkvY/preview)
 * [JQuery GoogleMaps Editor With Data Loading](http://embed.plnkr.co/nWfvbi/preview)
+* [JQuery GoogleMaps Editor With Custom Map Style](http://embed.plnkr.co/ocAabQcVIEUnoxBzspfT/preview)
 * [JQuery GoogleMaps Viewer With Data Loading](http://embed.plnkr.co/3a2otxiOS08ecDQIqZiZ/preview)
 
 ###What are options for plugin
@@ -53,6 +54,7 @@ The following is the list of options exposed in plugin initializing.
 * **streetViewControl** - Show streetview control on the map. Default value is _true_
 * **scrollWheel** - Use scroll wheel to zoom map. Default value is _false_
 * **locations** - List of location on the map to be loaded to map when intialzed. Main purpose is to store previously saved map locations. Default value is an empty array _[]_
+* **style** - Custom map style (custom styles can be found at [snazzymaps.com](http://snazzymaps.com/))
 
 > _Based on requrements, more plugin settings will be added in future plugin versions_
 
