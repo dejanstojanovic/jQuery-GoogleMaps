@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 1.9
+ * Version 1.9.1
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -750,14 +750,38 @@ $.fn.GoogleMapEditor = function (options) {
 
                 break;
             case google.maps.drawing.OverlayType.CIRCLE:
-                location.Coordinates.length = 0;
-                location.Coordinates.push(new Coordinate(location.Overlay.getCenter().lat(), location.Overlay.getCenter().lng()));
+
                 if ($('.popup-content input[name="radius"]').length > 0) {
+
+                    
                     location.Radius = parseFloat($('.popup-content input[name="radius"]').val());
-                    //location.Overlay.setRadius(location.Radius);
+
+                    google.maps.event.clearListeners(location.Overlay, 'radius_changed');
+                    location.Overlay.setRadius(location.Radius);
+
+                    google.maps.event.addListener(location.Overlay, 'radius_changed', function (index, obj) {
+                        updateLocationObject(map, location, type, true);
+                    });
+                    
                 }
                 else {
                     location.Radius = location.Overlay.getRadius();
+                }
+
+                if ($('.popup-content input[name="centerLat"]').length > 0 && $('.popup-content input[name="centerLng"]').length > 0) {
+
+                    google.maps.event.clearListeners(location.Overlay, 'center_changed');
+                    location.Overlay.setCenter(new google.maps.LatLng(parseFloat($('.popup-content input[name="centerLat"]').val()), parseFloat($('.popup-content input[name="centerLng"]').val())));
+                    google.maps.event.addListener(location.Overlay, 'center_changed', function (index, obj) {
+                        updateLocationObject(map, location, type, true);
+                    });
+                    location.Coordinates.length = 0;
+                    location.Coordinates.push(new Coordinate(location.Overlay.getCenter().lat(), location.Overlay.getCenter().lng()));
+
+                }
+                else {
+                    location.Coordinates.length = 0;
+                    location.Coordinates.push(new Coordinate(location.Overlay.getCenter().lat(), location.Overlay.getCenter().lng()));
                 }
                 break;
             case google.maps.drawing.OverlayType.POLYLINE:
