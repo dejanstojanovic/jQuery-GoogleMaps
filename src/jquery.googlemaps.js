@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 1.9.1
+ * Version 2.0
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -34,7 +34,7 @@ $.fn.GoogleMapEditor = function (options) {
         scaleControl: true,
         streetViewControl: true,
         scrollWheel: false,
-        style:null,
+        style: null,
         locations: [],
         dataChange: null,
         locationClick: null,
@@ -109,15 +109,52 @@ $.fn.GoogleMapEditor = function (options) {
         if (input != null) {
             map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
             $(input).click(function () {
-                if (map.locations != null && map.locations.length > 0) {
-                    var mapLocationBounds = new google.maps.LatLngBounds();
-                    for (i = 0; i < map.locations.length; i++) {
-                        for (j = 0; j < map.locations[i].Coordinates.length; j++) {
-                            mapLocationBounds.extend(new google.maps.LatLng(map.locations[i].Coordinates[j].Latitude, map.locations[i].Coordinates[j].Longitude));
-                        }
-                    }
-                    map.fitBounds(mapLocationBounds);
+                var bounds = getMapLocationsBounds(map);
+                if (bounds != null) {
+                    map.fitBounds(bounds);
                     saveToJson(map);
+                }
+            });
+        }
+    }
+
+    function addCurrentLocationButton(map) {
+        var inputId = "l" + map.id;
+        $(map.container).parent().prepend("<input id=\"" + inputId + "\" class=\"current-location\" type=\"button\" title=\"My Location\" />");
+        var input = document.getElementById(inputId);
+        if (input != null) {
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+            $(input).click(function () {
+                if (navigator.geolocation) {
+                    var mapOverlay = $(map.container).next();
+                    mapOverlay.width($(map.container).width());
+                    mapOverlay.height($(map.container).height());
+                    mapOverlay.offset({ top: $(map.container).offset().top, left: $(map.container).offset().left })
+                    mapOverlay.fadeIn("slow");
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        mapOverlay.fadeOut("fast");
+
+                        if (settings.editMode) {
+                            var myLocation = new Location([new Coordinate(position.coords.latitude, position.coords.longitude)], google.maps.drawing.OverlayType.MARKER, "", "", "", "", "", "");
+                            initMapObject(map, myLocation);
+                            map.locations.push(myLocation);
+                            var locationBounds = new google.maps.LatLngBounds(
+                              new google.maps.LatLng(myLocation.Coordinates[0].Latitude, myLocation.Coordinates[0].Longitude));
+                            map.fitBounds(locationBounds);
+                            map.setZoom(15);
+                            new google.maps.event.trigger(myLocation.Overlay, 'click');
+                            saveToJson(map);
+                        }
+                        else {
+                            var locationBounds = new google.maps.LatLngBounds(
+                              new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                            map.fitBounds(locationBounds);
+                            map.setZoom(15);
+                        }
+
+                    }, function (errmsg) {
+                        alert("Unable to fetch your current location!\n" + errmsg);
+                    });
                 }
             });
         }
@@ -210,8 +247,14 @@ $.fn.GoogleMapEditor = function (options) {
         //map.locations = [];
         map.id = createUUID();
 
+        $("<div/>", { class: "map-overlay" }).append($("<input/>", { type: "button", value: "Close", class: "btn-close" })).insertAfter($(map.container));
+        $(".map-overlay input.btn-close").click(function () {
+            $(this).parent().fadeOut("slow");
+        });
+
         google.maps.event.addListenerOnce(map, 'idle', function () {
             addFitBoundsButton(map);
+            addCurrentLocationButton(map);
             if (settings.searchBox) {
                 addSearchBox(map);
             }
@@ -221,6 +264,7 @@ $.fn.GoogleMapEditor = function (options) {
                     initMapObject(map, map.locations[i]);
                 }
             }
+
             saveToJson(map);
         });
 
@@ -262,7 +306,6 @@ $.fn.GoogleMapEditor = function (options) {
                     fillColor: settings.drawingFillColor
                     //,
                     //fillOpacity: settings.mouseOutOpacity,
-                    //strokeWeight: settings.drawingBorderWidth
                 },
                 markerOptions: {
                     draggable: settings.editMode
@@ -361,7 +404,6 @@ $.fn.GoogleMapEditor = function (options) {
                 maplocation = new Location([new Coordinate(overlay.getPosition().lat(), overlay.getPosition().lng())], google.maps.drawing.OverlayType.MARKER, "", "", "", "", "", "");
                 break;
             case google.maps.drawing.OverlayType.CIRCLE:
-                //coordinates.push()
                 maplocation = new Location([new Coordinate(overlay.getCenter().lat(), overlay.getCenter().lng())], google.maps.drawing.OverlayType.CIRCLE, "");
                 maplocation.Radius = overlay.getRadius();
                 break;
@@ -491,6 +533,11 @@ $.fn.GoogleMapEditor = function (options) {
     function saveToJson(map) {
         var result = null;
         if (settings.editMode) {
+            var mapBounds = getMapLocationsBounds(map);
+            if (mapBounds != null) {
+                var mapCenter = getMapLocationsBounds(map).getCenter();
+                settings.center = new Coordinate(mapCenter.lat(), mapCenter.lng());
+            }
             result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
             if (settings.dataChange != null && typeof (settings.dataChange) == "function") {
                 settings.dataChange(map, result);
@@ -755,7 +802,7 @@ $.fn.GoogleMapEditor = function (options) {
 
                 if ($('.popup-content input[name="radius"]').length > 0) {
 
-                    
+
                     location.Radius = parseFloat($('.popup-content input[name="radius"]').val());
 
                     google.maps.event.clearListeners(location.Overlay, 'radius_changed');
@@ -764,7 +811,7 @@ $.fn.GoogleMapEditor = function (options) {
                     google.maps.event.addListener(location.Overlay, 'radius_changed', function (index, obj) {
                         updateLocationObject(map, location, type, true);
                     });
-                    
+
                 }
                 else {
                     location.Radius = location.Overlay.getRadius();
@@ -890,6 +937,20 @@ $.fn.GoogleMapEditor = function (options) {
                 statusbar: false
             });
         }
+    }
+
+
+    function getMapLocationsBounds(map) {
+        if (map.locations != null && map.locations.length > 0) {
+            var mapLocationBounds = new google.maps.LatLngBounds();
+            for (i = 0; i < map.locations.length; i++) {
+                for (j = 0; j < map.locations[i].Coordinates.length; j++) {
+                    mapLocationBounds.extend(new google.maps.LatLng(map.locations[i].Coordinates[j].Latitude, map.locations[i].Coordinates[j].Longitude));
+                }
+            }
+            return mapLocationBounds;
+        }
+        return null;
     }
 
     function getPolyLineCenter(polyline) {
