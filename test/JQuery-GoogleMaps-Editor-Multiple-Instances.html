@@ -22,7 +22,7 @@
                 height:400,
                 richtextEditor:true,
                 dataChange: function (sender, data) {
-                    $(sender.container).next("textarea").val(data);
+                    $(sender.container).next().next().val(data);
                 }
             });
         });
