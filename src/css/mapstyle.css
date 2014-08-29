@@ -1,12 +1,26 @@
-.google-map
+.google-map, .map-overlay
 {
-    width: 800px;
-    height: 500px;
     background-color: #DBDBDB;
-    background-image: url(/src/img/map-load.gif);
+    background-image: url('../../src/img/map-load.gif');
     background-position: center center;
     background-repeat: no-repeat;
 }
+
+.map-overlay
+{
+    background-color: rgba(219,219,219,0.5);
+    position: absolute;
+    display: none;
+    text-align: center;
+}
+
+    .map-overlay .btn-close
+    {
+        top: 50%;
+        margin-top: 80px;
+        margin-left: -41px;
+        position: absolute;
+    }
 
 .popup-content input[type=color]
 {
@@ -22,7 +36,7 @@
     width: 25px;
 }
 
-.popup-content .btn-popup-delete, .popup-content .btn-popup-save, .popup-content .btn-popup-cancel
+.popup-content .btn-popup-delete, .popup-content .btn-popup-save, .popup-content .btn-popup-cancel, .map-overlay .btn-close
 {
     border: 1px solid #df0909;
     -webkit-border-radius: 3px;
@@ -37,27 +51,15 @@
     font-weight: bold;
     color: #FFFFFF;
     background-color: #f62b2b;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#f62b2b), to(#d20202));
-    background-image: -webkit-linear-gradient(top, #f62b2b, #d20202);
-    background-image: -moz-linear-gradient(top, #f62b2b, #d20202);
-    background-image: -ms-linear-gradient(top, #f62b2b, #d20202);
-    background-image: -o-linear-gradient(top, #f62b2b, #d20202);
+    min-width: 85px;
     background-image: linear-gradient(to bottom, #f62b2b, #d20202);
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f62b2b, endColorstr=#d20202);
-    min-width:85px;
 }
 
-    .popup-content .btn-popup-delete:hover
+    .popup-content .btn-popup-delete:hover, .map-overlay .btn-close:hover
     {
         border: 1px solid #b30808;
         background-color: #e40a0a;
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#e40a0a), to(#9f0202));
-        background-image: -webkit-linear-gradient(top, #e40a0a, #9f0202);
-        background-image: -moz-linear-gradient(top, #e40a0a, #9f0202);
-        background-image: -ms-linear-gradient(top, #e40a0a, #9f0202);
-        background-image: -o-linear-gradient(top, #e40a0a, #9f0202);
         background-image: linear-gradient(to bottom, #e40a0a, #9f0202);
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#e40a0a, endColorstr=#9f0202);
     }
 
 .popup-content .btn-popup-cancel
@@ -68,7 +70,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
     background: -moz-linear-gradient(top, #faa51a, #f47a20);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
-    margin-right:30px;
+    margin-right: 30px;
 }
 
     .popup-content .btn-popup-cancel:hover
@@ -133,7 +135,7 @@
 }
 
 
-.fit-bound
+.fit-bound, .current-location
 {
     margin-left: -4px;
     margin-top: 5px;
@@ -150,7 +152,13 @@
     cursor: pointer;
 }
 
-    .fit-bound:hover
+.current-location
+{
+    background-image: url(../img/current-location.png);
+    margin-left: 0px;
+}
+
+    .fit-bound:hover, .current-location:hover
     {
         background-color: #EBEBEB;
     }
