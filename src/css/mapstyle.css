@@ -11,15 +11,15 @@
     background-color: rgba(219,219,219,0.5);
     position: absolute;
     display: none;
-    text-align: center;
 }
 
     .map-overlay .btn-close
     {
         top: 50%;
         margin-top: 80px;
-        margin-left: -41px;
+        margin-left: calc(50% - 40px);
         position: absolute;
+
     }
 
 .popup-content input[type=color]
