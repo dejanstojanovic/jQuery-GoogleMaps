@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.0
+ * Version 2.0.1
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -154,6 +154,7 @@ $.fn.GoogleMapEditor = function (options) {
 
                     }, function (errmsg) {
                         alert("Unable to fetch your current location!\n" + errmsg);
+						mapOverlay.fadeOut("fast");
                     });
                 }
             });
