@@ -10,37 +10,47 @@
 
 $.fn.GoogleMapEditor = function (options) {
     var defaults = {
-        editMode: true,
-        editTemplatesPath: "../src/html/",
-        markerPinsPath: "../src/img/pin/",
-        markerPinFiles: ["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"],
-        drawingBorderColor: "#ff0000",
-        drawingBorderWidth: 2,
-        drawingFillColor: "#ffff00",
-        zoom: 13,
-        center: {
+        editMode: true,                     /* Allow editiong on the map */
+        editTemplatesPath: "../src/html/",  /* Editor layouts html files location */
+        markerPinsPath: "../src/img/pin/",  /* Custom marker icons path */
+        markerPinFiles: ["flag-azure.png",  /* List of files to be available from custom marker icons path */
+                        "flag-green.png",
+                        "needle-pink.png",
+                        "niddle-green.png",
+                        "pin-azure.png",
+                        "pin-green.png",
+                        "pin-pink.png"],
+        drawingBorderColor: "#ff0000",      /* Default border drawing color when drawing is initiated */
+        drawingBorderWidth: 2,              /* Default border drawing width when drawing is initiated */
+        drawingFillColor: "#ffff00",        /* Default fill drawing color when drawing is initiated */
+        zoom: 13,                           /* Default map zoom if not defined when initiating */
+        center: {                           /* Default map center */
             latitude: 25.0417,
             longitude: 55.2194
         },
-        width: 800,
-        height: 400,
-        language: "en",
-        singleLocation: false,
-        searchBox: true,
-        richtextEditor: true,
-        drawingTools: ["marker", "polyline", "polygon", "circle", "rectangle"],
-        zoomControl: true,
-        panControl: true,
-        scaleControl: true,
-        streetViewControl: true,
-        scrollWheel: false,
-        style: null,
-        locations: [],
-        dataChange: null,
-        locationClick: null,
-        locationNew: null,
-        locationDelete: null,
-        locationMove: null
+        width: 800,                         /* Map width. If not set then container width will be used*/
+        height: 400,                        /* Map height. If not set then container height will be used*/
+        language: "en",                     /* List of supported languages https://spreadsheets.google.com/spreadsheet/pub?key=0Ah0xU81penP1cDlwZHdzYWkyaERNc0xrWHNvTTA1S1E&gid=1 */
+        singleLocation: false,              /* Allow only one location present on the map */
+        searchBox: true,                    /* Add search box to the map */
+        richtextEditor: true,               /* Use TinyMce editor for location messages */
+        drawingTools: ["marker",            /* Tools to be availale for editing */
+                    "polyline",
+                    "polygon",
+                    "circle",
+                    "rectangle"],
+        zoomControl: true,                  /* Show zoom control */
+        panControl: true,                   /* Show pan control */
+        scaleControl: true,                 /* Show scale on the map */
+        streetViewControl: true,            /* Show street view control */
+        scrollWheel: false,                 /* Use mouse wheel to zoom in and zoom out*/
+        style: null,                        /* Build custom syles at http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html */
+        locations: [],                      /* Locations to be loaded with the map */
+        dataChange: null,                   /* Event raised when anything on the map changed */
+        locationClick: null,                /* Event raised when a location on the map is clicked */
+        locationNew: null,                  /* Event raised when new location is added on the map */
+        locationDelete: null,               /* Event raised when location is deleted from the map */
+        locationMove: null                  /* Event reaised when location is moved on the map to a different position */
     }
     var settings = $.extend({}, defaults, options);
     var tinyMceUrl = "//tinymce.cachefly.net/4.0/tinymce.min.js";
@@ -154,7 +164,7 @@ $.fn.GoogleMapEditor = function (options) {
 
                     }, function (errmsg) {
                         alert("Unable to fetch your current location!\n" + errmsg);
-						mapOverlay.fadeOut("fast");
+                        mapOverlay.fadeOut("fast");
                     });
                 }
             });
