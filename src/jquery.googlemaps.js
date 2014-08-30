@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.0.1
+ * Version 2.0.2
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -72,12 +72,25 @@ $.fn.GoogleMapEditor = function (options) {
         window.mapApiLoaded = function () {
             selector.each(function (index) {
                 var container = selector.get(index);
-                if ($(container).width() <= 0) {
-                    $(container).width(settings.width);
+
+                if (settings.width == defaults.width) {
+                    if ($(container).width() <= 0) {
+                        $(container).width(defaults.width);
+                    }
                 }
-                if ($(container).height() <= 0) {
-                    $(container).height(settings.height);
+                else {
+                    $(container).width(defaults.width);
                 }
+                
+                if (settings.height == defaults.height) {
+                    if ($(container).height() <= 0) {
+                        $(container).height(defaults.height);
+                    }
+                }
+                else {
+                    $(container).height(defaults.height);
+                }
+
                 initializeGoogleMapEditor(container);
             });
         };
