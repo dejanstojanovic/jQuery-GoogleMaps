@@ -79,7 +79,7 @@ $.fn.GoogleMapEditor = function (options) {
                     }
                 }
                 else {
-                    $(container).width(defaults.width);
+                    $(container).width(settings.width);
                 }
                 
                 if (settings.height == defaults.height) {
@@ -88,7 +88,7 @@ $.fn.GoogleMapEditor = function (options) {
                     }
                 }
                 else {
-                    $(container).height(defaults.height);
+                    $(container).height(settings.height);
                 }
 
                 initializeGoogleMapEditor(container);
