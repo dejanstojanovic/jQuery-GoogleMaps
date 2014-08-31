@@ -75,4 +75,4 @@ TinyMce is dynamically loaded by plugin itself based on options you set when you
 
 ###The video
 Checkout demo youtube video to see it in action.
-[![ScreenShot](http://dejanstojanovic.net/media/23559/video-demo-700.png)](http://www.youtube.com/watch?v=x0IDStVTHu8)
+[![ScreenShot](http://dejanstojanovic.net/media/23559/video-demo-700.png)](http://www.youtube.com/watch?v=p8II8prNYyo)
