@@ -22,6 +22,10 @@ Plugin will pull and refernce GoogleMaps API automatically by itself based on op
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="../src/jquery.googlemaps.js"></script>
 ```
+For ASP.NET developers it is available as a NuGet Package
+
+[![ScreenShot](http://dejanstojanovic.net/media/23565/nuget-small.png)](https://www.nuget.org/packages/JQuery.GoogleMaps/)
+
 ###How to use it
 For start checkout the following Plunker sample to see how to use it.
 * [JQuery GoogleMaps Editor](http://embed.plnkr.co/uF61SQ1xzbt7KHMpGkvY/preview)
