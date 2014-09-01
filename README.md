@@ -3,7 +3,7 @@ JQuery GoogleMaps Editor/View
 
 JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages
 
-The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a JQuery style. It is basically a wrapper around GoogleMaps API v3 and alow to easily add interactive and customized GoogleMaps for displaying or editing locations whether they are represented as ping or shapes.
+The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a JQuery style. It is a wrapper around GoogleMaps API v3 which alow to easily add interactively customize GoogleMaps for displaying or editing locations whether they are represented as ping or shapes.
 
 ###What can I do with it
 The main purpose of this plugin is to enable easy adding locatins and polygons to a GoogleMap, easy saving of map state and easy loading saved map state with locations again.
