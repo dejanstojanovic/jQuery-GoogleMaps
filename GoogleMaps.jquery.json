@@ -3,11 +3,13 @@
     "title": "jQuery GoogleMaps",
     "description": "JQuery plugin wrapper around GoogleMaps API for easier use of GoogleMaps on web sites and back-end web pages.",
     "keywords": [
-        "GoogleMaps",
-        "Editor",
-	"Viewer"
+	"map",
+    	"googlemaps",
+    	"editor",
+	"viewer",
+	"locations"
     ],
-    "version": "2.0",
+    "version": "2.0.1",
     "author": {
         "name": "Dejan Stojanovic",
         "url": "https://github.com/dejanstojanovic/JQuery-GoogleMaps"
