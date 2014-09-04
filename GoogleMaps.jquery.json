@@ -9,7 +9,7 @@
 	"viewer",
 	"locations"
     ],
-    "version": "2.0.2",
+    "version": "2.2.0",
     "author": {
         "name": "Dejan Stojanovic",
         "url": "https://github.com/dejanstojanovic/JQuery-GoogleMaps"
