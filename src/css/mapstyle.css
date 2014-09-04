@@ -135,7 +135,7 @@
 }
 
 
-.fit-bound, .current-location
+.fit-bound, .current-location, .map-style
 {
     margin-left: -4px;
     margin-top: 5px;
@@ -150,6 +150,13 @@
     background-position: center center;
     background-repeat: no-repeat;
     cursor: pointer;
+}
+
+.map-style
+{
+    min-width:100px;
+    background-image:none;
+    width:auto !important;
 }
 
 .current-location
