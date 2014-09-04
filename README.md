@@ -58,6 +58,7 @@ The following is the list of options exposed in plugin initializing.
 * **streetViewControl** - Show streetview control on the map. Default value is _true_
 * **scrollWheel** - Use scroll wheel to zoom map. Default value is _false_
 * **locations** - List of location on the map to be loaded to map when intialzed. Main purpose is to store previously saved map locations. Default value is an empty array _[]_
+* **stylesPath** - Url to styles.json with predefined styles. Default value is _../src/styles.json_
 * **style** - Custom map style (custom styles can be found at [snazzymaps.com](http://snazzymaps.com/))
 
 > _Based on requrements, more plugin settings will be added in future plugin versions_
