@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.0.2
+ * Version 2.2.0
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -45,6 +45,7 @@ $.fn.GoogleMapEditor = function (options) {
         streetViewControl: true,            /* Show street view control */
         scrollWheel: false,                 /* Use mouse wheel to zoom in and zoom out*/
         style: null,                        /* Build custom syles at http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html */
+        stylesPath: "../src/styles.json",   /* Url of JSON file with map styles definitions. Enpowered by snazzymaps.com */
         locations: [],                      /* Locations to be loaded with the map */
         dataChange: null,                   /* Event raised when anything on the map changed */
         locationClick: null,                /* Event raised when a location on the map is clicked */
@@ -81,7 +82,7 @@ $.fn.GoogleMapEditor = function (options) {
                 else {
                     $(container).width(settings.width);
                 }
-                
+
                 if (settings.height == defaults.height) {
                     if ($(container).height() <= 0) {
                         $(container).height(defaults.height);
@@ -124,6 +125,37 @@ $.fn.GoogleMapEditor = function (options) {
             });
         }
     }
+
+    function addStylesList(map) {
+        var selectId = "s" + map.id;
+        $(map.container).parent().prepend("<select id=\"" + selectId + "\" class=\"map-style\" />");
+        var select = document.getElementById(selectId);
+        $(select).append($('<option>', {
+            value: JSON.stringify([]),
+            text: "GoogleMaps Default"
+        }));
+        $.getJSON(settings.stylesPath, function (data) {
+            $(data).each(function (index, item) {
+                $(select).append($('<option>', {
+                    value: item.json,
+                    text: item.name
+                }));
+            });
+        });
+        if (select != null) {
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(select);
+            $(select).change(function () {
+                map.setOptions({ mapTypeId: "Styled" });
+                var styledMapType = new google.maps.StyledMapType(
+                    eval($(this).val())
+                    , { name: 'Styled' });
+                map.mapTypes.set('Styled', styledMapType);
+                settings.style = eval($(this).val());
+                saveToJson(map);
+            });
+        }
+    }
+
 
     function addFitBoundsButton(map) {
         var inputId = "c" + map.id;
@@ -277,6 +309,7 @@ $.fn.GoogleMapEditor = function (options) {
         });
 
         google.maps.event.addListenerOnce(map, 'idle', function () {
+            addStylesList(map);
             addFitBoundsButton(map);
             addCurrentLocationButton(map);
             if (settings.searchBox) {
@@ -549,9 +582,7 @@ $.fn.GoogleMapEditor = function (options) {
                 attachLocationHandlers(map, location, google.maps.drawing.OverlayType.RECTANGLE);
                 break;
         }
-
         attachTransformHandlers(map, location.Overlay, location.LocationType);
-
     }
 
     function saveToJson(map) {
@@ -562,7 +593,10 @@ $.fn.GoogleMapEditor = function (options) {
                 var mapCenter = getMapLocationsBounds(map).getCenter();
                 settings.center = new Coordinate(mapCenter.lat(), mapCenter.lng());
             }
-            result = JSON.stringify($.extend({}, settings, { locations: map.locations }), ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
+            var properties = ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag", "style"];
+            properties = properties.concat(["featureType", "elementType", "stylers", "color", "hue", "weight", "visibility", "lightness", "saturation"]);
+
+            result = JSON.stringify($.extend({}, settings, { locations: map.locations }), properties);
             if (settings.dataChange != null && typeof (settings.dataChange) == "function") {
                 settings.dataChange(map, result);
             }
