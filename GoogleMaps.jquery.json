@@ -32,6 +32,6 @@
     "docs": "hhttps://github.com/dejanstojanovic/JQuery-GoogleMaps",
     "download": "http://code.jquery.com/#GoogleMaps",
     "dependencies": {
-        "jquery": ">=1.5"
+        "jquery": ">=1.11.0"
     }
 }
