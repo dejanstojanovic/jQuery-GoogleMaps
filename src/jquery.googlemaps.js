@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.2.3
+ * Version 2.2.4
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -127,32 +127,34 @@ $.fn.GoogleMapEditor = function (options) {
     }
 
     function addStylesList(map) {
-        var selectId = "s" + map.id;
-        $(map.container).parent().prepend("<select id=\"" + selectId + "\" class=\"map-style\" />");
-        var select = document.getElementById(selectId);
-        $(select).append($('<option>', {
-            value: JSON.stringify([]),
-            text: "GoogleMaps Default"
-        }));
-        $.getJSON(settings.stylesPath, function (data) {
-            $(data).each(function (index, item) {
-                $(select).append($('<option>', {
-                    value: item.json,
-                    text: item.name
-                }));
+        if (settings.editMode) {
+            var selectId = "s" + map.id;
+            $(map.container).parent().prepend("<select id=\"" + selectId + "\" class=\"map-style\" />");
+            var select = document.getElementById(selectId);
+            $(select).append($('<option>', {
+                value: JSON.stringify([]),
+                text: "GoogleMaps Default"
+            }));
+            $.getJSON(settings.stylesPath, function (data) {
+                $(data).each(function (index, item) {
+                    $(select).append($('<option>', {
+                        value: item.json,
+                        text: item.name
+                    }));
+                });
             });
-        });
-        if (select != null) {
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(select);
-            $(select).change(function () {
-                map.setOptions({ mapTypeId: "Styled" });
-                var styledMapType = new google.maps.StyledMapType(
-                    eval($(this).val())
-                    , { name: 'Styled' });
-                map.mapTypes.set('Styled', styledMapType);
-                settings.style = eval($(this).val());
-                saveToJson(map);
-            });
+            if (select != null) {
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(select);
+                $(select).change(function () {
+                    map.setOptions({ mapTypeId: "Styled" });
+                    var styledMapType = new google.maps.StyledMapType(
+                        eval($(this).val())
+                        , { name: 'Styled' });
+                    map.mapTypes.set('Styled', styledMapType);
+                    settings.style = eval($(this).val());
+                    saveToJson(map);
+                });
+            }
         }
     }
 
