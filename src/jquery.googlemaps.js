@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.2.1
+ * Version 2.2.3
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
