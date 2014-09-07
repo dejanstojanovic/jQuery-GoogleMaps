@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.2.0
+ * Version 2.2.1
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -593,7 +593,8 @@ $.fn.GoogleMapEditor = function (options) {
                 var mapCenter = getMapLocationsBounds(map).getCenter();
                 settings.center = new Coordinate(mapCenter.lat(), mapCenter.lng());
             }
-            var properties = ["zoom", "width", "height", "singleLocation", "center", "latitude", "longitude", "locations", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag", "style"];
+            var properties = ["editMode", "editTemplatesPath", "markerPinsPath", "markerPinFiles", "drawingBorderColor", "drawingBorderWidth", "drawingFillColor", "zoom", "width", "height", "singleLocation", "center", "language", "searchBox", "richtextEditor", "drawingTools", "zoomControl", "panControl", "scaleControl", "streetViewControl", "scrollWheel", "stylesPath", "style", "locations"];
+            properties = properties.concat(["latitude", "longitude", "Coordinates", "Latitude", "Longitude", "Radius", "LocationType", "Icon", "HoverIcon", "Message", "BorderColor", "BorderWeight", "FillColor", "Tag"]);
             properties = properties.concat(["featureType", "elementType", "stylers", "color", "hue", "weight", "visibility", "lightness", "saturation"]);
 
             result = JSON.stringify($.extend({}, settings, { locations: map.locations }), properties);
