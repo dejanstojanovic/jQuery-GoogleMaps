@@ -300,7 +300,6 @@ $.fn.GoogleMapEditor = function (options) {
         map.setOptions({ scrollwheel: settings.scrollWheel });
         map.container = container;
         map.locations = settings.locations.slice(0);
-        //map.locations = [];
         map.id = createUUID();
 
         $("<div/>", { class: "map-overlay" }).append($("<input/>", { type: "button", value: "Close", class: "btn-close" })).insertAfter($(map.container));
@@ -361,12 +360,9 @@ $.fn.GoogleMapEditor = function (options) {
                     strokeWeight: settings.drawingBorderWidth,
                     strokeColor: settings.drawingBorderColor,
                     fillColor: settings.drawingFillColor
-                    //,
-                    //fillOpacity: settings.mouseOutOpacity,
                 },
                 markerOptions: {
                     draggable: settings.editMode
-                    //icon: settings.markerIcon
                 },
                 polylineOptions: {
                     draggable: settings.editMode,
@@ -516,7 +512,6 @@ $.fn.GoogleMapEditor = function (options) {
                     draggable: settings.editMode,
                     map: map,
                     strokeWeight: location.BorderWeight,
-                    //fillOpacity: settings.mouseOutOpacity,
                     strokeColor: location.BorderColor,
                     fillColor: location.FillColor,
                     map: map,
@@ -554,7 +549,6 @@ $.fn.GoogleMapEditor = function (options) {
                 polygon = new google.maps.Polygon({
                     path: poligonCorners,
                     strokeWeight: location.BorderWeight,
-                    //fillOpacity: settings.mouseOutOpacity,
                     strokeColor: location.BorderColor,
                     fillColor: location.FillColor,
                     draggable: settings.editMode,
@@ -569,7 +563,6 @@ $.fn.GoogleMapEditor = function (options) {
                     draggable: settings.editMode,
                     map: map,
                     strokeWeight: location.BorderWeight,
-                    //fillOpacity: settings.mouseOutOpacity,
                     strokeColor: location.BorderColor,
                     fillColor: location.FillColor,
                     map: map,
@@ -1028,14 +1021,14 @@ $.fn.GoogleMapEditor = function (options) {
     }
 
     function createUUID() {
-        //http://www.ietf.org/rfc/rfc4122.txt
+        /* http://www.ietf.org/rfc/rfc4122.txt */
         var s = [];
         var hexDigits = "0123456789abcdef";
         for (var i = 0; i < 36; i++) {
             s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
         }
-        s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
-        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[14] = "4";  /* bits 12-15 of the time_hi_and_version field to 0010 */
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  /* bits 6-7 of the clock_seq_hi_and_reserved to 01 */
         s[8] = s[13] = s[18] = s[23] = "";
 
         var uuid = s.join("");
@@ -1071,10 +1064,7 @@ $.fn.GoogleMapEditor = function (options) {
     }
 }
 
-/*
-Simple color picker https://github.com/rachel-carvalho/simple-color-picker
-*/
-
+/* Simple color picker https://github.com/rachel-carvalho/simple-color-picker */
 $.fn.simpleColorPicker = function (options) {
     var defaults = {
         colorsPerLine: 8,
@@ -1119,7 +1109,6 @@ $.fn.simpleColorPicker = function (options) {
             }
             hideBox(box);
         });
-        //$('body').live('click', function () {
         $(document).on('click', 'body', function () {
             hideBox(box);
         });
@@ -1142,7 +1131,7 @@ $.fn.simpleColorPicker = function (options) {
         txt.click(function (event) {
             event.stopPropagation();
             if (!txt.is('input')) {
-                // element is not an input so probably a link or div which requires the color box to be shown
+                /* element is not an input so probably a link or div which requires the color box to be shown */
                 positionAndShowBox(box);
             }
         });
