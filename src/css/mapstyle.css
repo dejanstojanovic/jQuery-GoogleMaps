@@ -53,6 +53,7 @@
     background-color: #f62b2b;
     min-width: 85px;
     background-image: linear-gradient(to bottom, #f62b2b, #d20202);
+	margin-right:3px;
 }
 
     .popup-content .btn-popup-delete:hover, .map-overlay .btn-close:hover
