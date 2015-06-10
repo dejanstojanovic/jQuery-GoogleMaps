@@ -24,7 +24,11 @@ Plugin will pull and refernce GoogleMaps API automatically by itself based on op
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript" src="../src/jquery.googlemaps.js"></script>
 ```
-For ASP.NET developers it is available as a NuGet Package
+
+For ASP.NET developers it is available as a NuGet Package at [NuGet Gallery](https://www.nuget.org/packages/JQuery.GoogleMaps/) or direcly from NuGet package manager/console
+```
+PM> Install-Package JQuery.GoogleMaps
+```
 
 [![ScreenShot](http://dejanstojanovic.net/media/23565/nuget-small.png)](https://www.nuget.org/packages/JQuery.GoogleMaps/)
 
@@ -80,3 +84,13 @@ Yes, this plugin provides you adding location popup messages in a richtext. Plug
 
 TinyMce is dynamically loaded by plugin itself based on options you set when you initialize plugin. Simple color picker plugin is included in this plugin library js file and it is used in edit mode for color picking for browsers which do not support [HTML5 color input](http://www.w3schools.com/html/html5_form_input_types.asp).
 
+###Using it in ASP.NET MVC
+To make life easier for all developers who use ASP.NET MVC, I created a separate project which deals with serialization/deserialization and adding the plaugin in ASP.NET MVC style to web projects.
+
+Complete guide how to use it in MVC views ia available on [GitHub project page](https://www.nuget.org/packages/MVC.GoogleMaps/) as well as a complete code.
+
+NuGet package for ASP.NET MVC is available from [NuGet Gallery](https://www.nuget.org/packages/MVC.GoogleMaps/) or direcly from NuGet package manager/console
+
+```
+PM> Install-Package MVC.GoogleMaps
+```
