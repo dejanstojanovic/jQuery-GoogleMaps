@@ -175,6 +175,75 @@ $.fn.GoogleMapEditor = function (options) {
         }
     }
 
+    function addPrintButton(map) {
+        var inputId = "l" + map.id;
+        $(map.container).parent().prepend("<input id=\"" + inputId + "\" class=\"print-map\" type=\"button\" title=\"Print map\" />");
+        var input = document.getElementById(inputId);
+        if (input != null) {
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+            $(input).click(function () {
+
+                //------------------------------------
+                map.setOptions({
+                    mapTypeControl: false,
+                    zoomControl: false,
+                    streetViewControl: false,
+                    panControl: false
+                });
+
+                var popUpAndPrint = function () {
+                    dataUrl = [];
+
+                    //alert(settings.selector);
+
+                    $(map.container).find("canvas").filter(function () {
+                        dataUrl.push(this.toDataURL("image/png"));
+                    })
+
+                    var container = $(map.container);//.get(0); //document.getElementById('map-canvas');
+                    var clone = container.clone();
+
+                    var width = container.clientWidth
+                    var height = container.clientHeight
+
+                    $(clone).find('canvas').each(function (i, item) {
+                        $(item).replaceWith(
+                          $('<img>')
+                            .attr('src', dataUrl[i]))
+                            .css('position', 'absolute')
+                            .css('left', '0')
+                            .css('top', '0')
+                            .css('width', width + 'px')
+                            .css('height', height + 'px');
+
+                        
+                    });
+                    $(clone).find("input,select,.gmnoprint").hide();
+
+                    var printWindow = window.open('', 'PrintMap',
+                      'width=' + width + ',height=' + height);
+                    printWindow.document.writeln($(clone).html());
+                    printWindow.document.close();
+                    printWindow.focus();
+                    printWindow.print();
+                    printWindow.close();
+
+                    map.setOptions({
+                        mapTypeControl: true,
+                        zoomControl: settings.zoomControl,
+                        streetViewControl: settings.streetViewControl,
+                        panControl: settings.panControl
+                    });
+
+                    $(clone).find("input,.map-style,.gmnoprint").show();
+                };
+
+                setTimeout(popUpAndPrint, 500);
+                //------------------------------------
+            });
+        }
+    }
+
     function addCurrentLocationButton(map) {
         var inputId = "l" + map.id;
         $(map.container).parent().prepend("<input id=\"" + inputId + "\" class=\"current-location\" type=\"button\" title=\"My Location\" />");
@@ -313,6 +382,7 @@ $.fn.GoogleMapEditor = function (options) {
             addStylesList(map);
             addFitBoundsButton(map);
             addCurrentLocationButton(map);
+            addPrintButton(map);
             if (settings.searchBox) {
                 addSearchBox(map);
             }

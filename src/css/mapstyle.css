@@ -136,7 +136,7 @@
 }
 
 
-.fit-bound, .current-location, .map-style
+.fit-bound, .current-location, .map-style, .print-map
 {
     margin-left: -4px;
     margin-top: 5px;
@@ -165,8 +165,13 @@
     background-image: url(../img/current-location.png);
     margin-left: 0px;
 }
+.print-map
+{
+    background-image: url(../img/map-print.png);
+    margin-left: 0px;
+}
 
-    .fit-bound:hover, .current-location:hover
+    .fit-bound:hover, .current-location:hover, .print-map:hover
     {
         background-color: #EBEBEB;
     }
