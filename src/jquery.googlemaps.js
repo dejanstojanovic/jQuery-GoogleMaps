@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery Plugin: JQuery GoogleMaps
  * https://github.com/dejanstojanovic/JQuery-GoogleMaps
- * Version 2.2.4
+ * Version 2.2.6
  *
  * Copyright (c) 2014 Dejan Stojanovic (http://dejanstojanovic.net)
  *
@@ -194,13 +194,11 @@ $.fn.GoogleMapEditor = function (options) {
                 var popUpAndPrint = function () {
                     dataUrl = [];
 
-                    //alert(settings.selector);
-
                     $(map.container).find("canvas").filter(function () {
                         dataUrl.push(this.toDataURL("image/png"));
                     })
 
-                    var container = $(map.container);//.get(0); //document.getElementById('map-canvas');
+                    var container = $(map.container);
                     var clone = container.clone();
 
                     var width = container.clientWidth
@@ -239,7 +237,7 @@ $.fn.GoogleMapEditor = function (options) {
                 };
 
                 setTimeout(popUpAndPrint, 500);
-                //------------------------------------
+                
             });
         }
     }
