@@ -42,30 +42,34 @@ For start checkout the following Plunker sample to see how to use it.
 ###What are options for plugin
 There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
 The following is the list of options exposed in plugin initializing.
-* **editMode** - Determines whether map and locations on it will be editable or not. Besically it is a switch between editor and viewer. Default value is _true_
-* **editTemplatesPath** - Folder URL where html temple files for location editiong are stored. Default value is _../src/html/_
-* **markerPinsPath** - Folder URL where marker pin images are stored. Default value is _../src/img/pin/_
-* **markerPinFiles** - Files in marker pins folder which will be used for editing. Value _markerPinsPath_ will be concatenated to a filename to display it on the map. Default value is _["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"]_
-* **drawingBorderColor** - Drawing border color for map drawing tools. Default value is _"#ff0000"_
-* **drawingBorderWidth** - Default border width for map drawing tools. Default value is _2_
-* **drawingFillColor** - Drawing fill color for map drawing tools. Default value is _"#ffff00"_
-* **zoom** - Initial zoom level of map. default value is _13_
-* **center** - Initial map center coordinates
-* **width** - Width of map. Default value is _800_
-* **height** - Height of map. Default value is _400_
-* **language** - Language of the map. Default value is _"en"_
-* **singleLocation** - If true then only ine location is allowed to be added. Before adding map will be cleared. If set to false, multiple locations can be added to map. Default value _false_
-* **searchBox** - Show or hide search box on map. Default value is _true_
-* **richtextEditor** - Use TinyMce editor for editiong location messages. Default value is _true_
-* **drawingTools** - List of drawing tools to be andled on map in edit mode. Default value is _["marker", "polyline", "polygon", "circle", "rectangle"]_
-* **zoomControl** - Show zoom control on map. Default value is _true_
-* **panControl** - Show pan control on the map. Default value is _true_
-* **scaleControl** - Show scale control on the map. Default value is _true_
-* **streetViewControl** - Show streetview control on the map. Default value is _true_
-* **scrollWheel** - Use scroll wheel to zoom map. Default value is _false_
-* **locations** - List of location on the map to be loaded to map when intialzed. Main purpose is to store previously saved map locations. Default value is an empty array _[]_
-* **stylesPath** - Url to styles.json with predefined styles. Default value is _../src/styles.json_
-* **style** - Custom map style (custom styles can be found at [snazzymaps.com](http://snazzymaps.com/))
+
+| Name  		 			| Default value 	| Description				 	|
+| ------------------------- | ----------------- | ------------------------------|
+| **editMode** 				| true				| Determines whether map and locations on it will be editable or not. Basically it is a switch between editor and viewer |
+| **editTemplatesPath** 	| "../src/html/"	| Folder URL where html temple files for location editing are stored |
+| **markerPinsPath** 		| "../src/img/pin/"	| Folder URL where marker pin images are stored |
+| **markerPinFiles** 		| ["flag-azure.png", "flag-green.png", "needle-pink.png", "niddle-green.png", "pin-azure.png", "pin-green.png", "pin-pink.png"] | Files in marker pins folder which will be used for editing. Value _markerPinsPath_ will be concatenated to a filename to display it on the map |
+| **drawingBorderColor** 	| "#ff0000" 		| Drawing border color for map drawing tools |
+| **drawingBorderWidth** 	| 2 				| Default border width for map drawing tools |
+| **drawingFillColor** 		| "#ffff00" 		| Drawing fill color for map drawing tools |
+| **zoom** 					| 13 				| Initial zoom level of map |
+| **center** 				|  					| Initial map center coordinates |
+| **width** 				| 800 				| Width of map |
+| **height** 				| 400 				| Height of map |
+| **language** 				| "en" 				| Language of the map |
+| **singleLocation** 		| false 			| If true then only ine location is allowed to be added. Before adding map will be cleared. If set to false, multiple locations can be added to map |
+| **searchBox** 			| true 				| Show or hide search box on map |
+| **richtextEditor** 		| true 				| Use TinyMce editor for editing location messages |
+| **drawingTools** 			| ["marker", "polyline", "polygon", "circle", "rectangle"] | List of drawing tools to be dandled on map in edit mode |
+| **zoomControl** 			| true 				| Show zoom control on map |
+| **panControl** 			| true 				| Show pan control on the map |
+| **scaleControl** 			| true 				| Show scale control on the map |
+| **streetViewControl** 	| true 				| Show streetview control on the map |
+| **scrollWheel** 			| false 			| Use scroll wheel to zoom map |
+| **locations** 			| [] 				| List of location on the map to be loaded to map when initialized. Main purpose is to store previously saved map locations |
+| **stylesPath** 			| "../src/styles.json" | Url to styles.json with predefined styles |
+| **style** 				|  					| Custom map style (custom styles can be found at [snazzymaps.com](http://snazzymaps.com/)) |
+
 
 > _Based on requrements, more plugin settings will be added in future plugin versions_
 
