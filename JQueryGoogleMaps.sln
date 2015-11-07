@@ -1,24 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "trunk", ".", "{68F21712-C3FA-4D32-8E59-32F60DFE16B7}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/trunk"
-		Debug.AspNetCompiler.PhysicalPath = "D:\MySandbox\GIT\JQuery-GoogleMaps.git\trunk\"
+		Debug.AspNetCompiler.PhysicalPath = "..\trunk\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\trunk\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/trunk"
-		Release.AspNetCompiler.PhysicalPath = "D:\MySandbox\GIT\JQuery-GoogleMaps.git\trunk\"
+		Release.AspNetCompiler.PhysicalPath = "..\trunk\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\trunk\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "49724"
+		SlnRelativePath = "..\trunk\"
 	EndProjectSection
 EndProject
 Global
