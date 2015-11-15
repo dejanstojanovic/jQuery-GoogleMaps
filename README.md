@@ -13,7 +13,7 @@ The purpose of this JQuery plugin is to enable using GoogleMaps on a page in a J
 ###What can I do with it
 The main purpose of this plugin is to enable easy adding locatins and polygons to a GoogleMap, easy saving of map state and easy loading saved map state with locations again.
 It runs in two modes:
-* Editor mode - Allows you to add locations to a map, move them, delete, edit and organize however you want. It is useful for backend applications where you need to organize your locations easily and easily save your work.
+* Editor mode - Allows you to add locations to a map, move them, delete, edit and organize however you want. It is useful for backend applications where you need to organize your locations easily and easily save your work. The map stage is saved in JSON format and can be easily reused after saving.
 * Viewer mode - This mode designed is for frontend use. It alows you to load and display previously saved work from editor mode of plugin.
 
 ![ScreenShot](http://dejanstojanovic.net/media/114933/map-style.gif)
