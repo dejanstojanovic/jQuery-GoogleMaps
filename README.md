@@ -1,3 +1,6 @@
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=stojanovicdeja&url=https://github.com/dejanstojanovic/JQuery-GoogleMaps&title=jQuery GoogleMaps&language=&tags=github&category=software) 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dejanstojanovic/jquery-googlemaps/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 jQuery GoogleMaps Editor/Viewer
 =======================
 
@@ -100,7 +103,3 @@ NuGet package for ASP.NET MVC is available from [NuGet Gallery](https://www.nuge
 ```
 PM> Install-Package MVC.GoogleMaps
 ```
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dejanstojanovic/jquery-googlemaps/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
