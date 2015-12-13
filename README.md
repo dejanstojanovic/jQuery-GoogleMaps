@@ -38,11 +38,11 @@ PM> Install-Package JQuery.GoogleMaps
 [![ScreenShot](http://dejanstojanovic.net/media/23565/nuget-small.png)](https://www.nuget.org/packages/JQuery.GoogleMaps/)
 
 ###How to use it
-For start checkout the following Plunker sample to see how to use it.
-* [JQuery GoogleMaps Editor](http://embed.plnkr.co/uF61SQ1xzbt7KHMpGkvY/preview)
-* [JQuery GoogleMaps Editor With Data Loading](http://embed.plnkr.co/nWfvbi/preview)
-* [JQuery GoogleMaps Editor With Custom Map Style](http://embed.plnkr.co/ocAabQcVIEUnoxBzspfT/preview)
-* [JQuery GoogleMaps Viewer With Data Loading](http://embed.plnkr.co/3a2otxiOS08ecDQIqZiZ/preview)
+For start checkout the following [CodePen](http://codepen.io/) samples to see how to use it.
+* [JQuery GoogleMaps Editor](http://codepen.io/dejanstojanovic/full/objozj)
+* [JQuery GoogleMaps Editor With Data Loading](http://codepen.io/dejanstojanovic/full/NxGwry)
+* [JQuery GoogleMaps Editor With Custom Map Style](http://codepen.io/dejanstojanovic/full/eJpezx)
+* [JQuery GoogleMaps Viewer With Data Loading](http://codepen.io/dejanstojanovic/full/qbOVNE)
 
 ###What are options for plugin
 There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
