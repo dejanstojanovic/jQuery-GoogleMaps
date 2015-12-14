@@ -43,6 +43,8 @@ For start checkout the following [CodePen](http://codepen.io/) samples to see ho
 * [JQuery GoogleMaps Editor With Data Loading](http://codepen.io/dejanstojanovic/full/NxGwry)
 * [JQuery GoogleMaps Editor With Custom Map Style](http://codepen.io/dejanstojanovic/full/eJpezx)
 * [JQuery GoogleMaps Viewer With Data Loading](http://codepen.io/dejanstojanovic/full/qbOVNE)
+* [JQuery GoogleMaps Viewer With Data Loading from File](http://codepen.io/dejanstojanovic/full/RrWzoG)
+
 
 ###What are options for plugin
 There is a long list of options for the plugin initialization. You do not need to provide all the values as every option has it's own default value. Only in case you want to change the default value of option you specify it.
@@ -50,6 +52,7 @@ The following is the list of options exposed in plugin initializing.
 
 | Name  		 			| Default value 	| Description				 	|
 | ------------------------- | ----------------- | ------------------------------|
+| **mapFile** 				| null				| File path or URL from which to load the map content from
 | **editMode** 				| true				| Determines whether map and locations on it will be editable or not. Basically it is a switch between editor and viewer |
 | **editTemplatesPath** 	| "../src/html/"	| Folder URL where html temple files for location editing are stored |
 | **markerPinsPath** 		| "../src/img/pin/"	| Folder URL where marker pin images are stored |
