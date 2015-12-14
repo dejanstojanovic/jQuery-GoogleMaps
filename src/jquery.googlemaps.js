@@ -10,23 +10,26 @@
 
 $.fn.GoogleMapEditor = function (options) {
     var defaults = {
+        mapFile: null,                      /* JSON map file to be loaded */
         editMode: true,                     /* Allow editiong on the map */
         editTemplatesPath: "../src/html/",  /* Editor layouts html files location */
         markerPinsPath: "../src/img/pin/",  /* Custom marker icons path */
-        markerPinFiles: ["flag-azure.png",  /* List of files to be available from custom marker icons path */
-                        "flag-green.png",
-                        "needle-pink.png",
-                        "niddle-green.png",
-                        "pin-azure.png",
-                        "pin-green.png",
-                        "pin-pink.png"],
+        markerPinFiles: [                   /* List of files to be available from custom marker icons path */
+                         "flag-azure.png",  
+                         "flag-green.png",
+                         "needle-pink.png",
+                         "niddle-green.png",
+                         "pin-azure.png",
+                         "pin-green.png",
+                         "pin-pink.png"
+                        ],
         drawingBorderColor: "#ff0000",      /* Default border drawing color when drawing is initiated */
         drawingBorderWidth: 2,              /* Default border drawing width when drawing is initiated */
         drawingFillColor: "#ffff00",        /* Default fill drawing color when drawing is initiated */
         zoom: 13,                           /* Default map zoom if not defined when initiating */
         center: {                           /* Default map center */
-            latitude: 25.0417,
-            longitude: 55.2194
+            Latitude: 25.0417,
+            Longitude: 55.2194
         },
         width: 800,                         /* Map width. If not set then container width will be used*/
         height: 400,                        /* Map height. If not set then container height will be used*/
@@ -54,6 +57,18 @@ $.fn.GoogleMapEditor = function (options) {
         locationMove: null                  /* Event reaised when location is moved on the map to a different position */
     }
     var settings = $.extend({}, defaults, options);
+
+    if (settings.mapFile != null && settings.mapFile != "") {
+        $.ajax({
+            url: settings.mapFile,
+            async: false,
+            dataType: 'json',
+            success: function (response) {
+                settings = $.extend({}, settings, response);
+            }
+        });
+    }
+
     var tinyMceUrl = "//tinymce.cachefly.net/4.0/tinymce.min.js";
     var mapApiUrl = "//maps.googleapis.com/maps/api/js?sensor=false&callback=mapApiLoaded&libraries=drawing,places";
 
@@ -157,7 +172,6 @@ $.fn.GoogleMapEditor = function (options) {
             }
         }
     }
-
 
     function addFitBoundsButton(map) {
         var inputId = "c" + map.id;
@@ -285,7 +299,6 @@ $.fn.GoogleMapEditor = function (options) {
         }
     }
 
-
     function arePopupTemplatesLoaded() {
         if (
         popupTemplateCircle != null &&
@@ -356,7 +369,7 @@ $.fn.GoogleMapEditor = function (options) {
             loadPopupTemplates();
         }
         map = new google.maps.Map(container, {
-            center: new google.maps.LatLng(settings.center.latitude, settings.center.longitude),
+            center: new google.maps.LatLng(settings.center.Latitude, settings.center.Longitude),
             zoom: settings.zoom,
             zoomControl: settings.zoomControl,
             panControl: settings.panControl,
@@ -667,7 +680,6 @@ $.fn.GoogleMapEditor = function (options) {
         }
         return result;
     }
-
 
     function handleMapCloseClick(map, type) {
         if (typeof map.activeLocation != 'undefined' && map.activeLocation != null) {
@@ -1060,7 +1072,6 @@ $.fn.GoogleMapEditor = function (options) {
             });
         }
     }
-
 
     function getMapLocationsBounds(map) {
         if (map.locations != null && map.locations.length > 0) {

@@ -12,10 +12,10 @@
     <textarea rows="10" cols="100" style="width: 100%"></textarea>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".map-container").GoogleMapEditor({
+           var editor = $(".map-container").GoogleMapEditor({
                 height: 400,
                 richtextEditor: false,
-                center: { "latitude": 25.0946, "longitude": 55.2779 },
+                center: { "Latitude": 25.0946, "Longitude": 55.2779 },
                 locations: [{"Coordinates":[{"Latitude":25.073782645952882,"Longitude":55.27865409851074}],"Radius":0,"LocationType":"marker","Icon":"pin-azure.png","HoverIcon":"pin-green.png","Message":"Hello from pin 1","Tag":null},{"Coordinates":[{"Latitude":25.09663673267224,"Longitude":55.257368087768555}],"Radius":0,"LocationType":"marker","Icon":"flag-azure.png","HoverIcon":"flag-green.png","Message":"Hello from pin 2","Tag":null},{"Coordinates":[{"Latitude":25.105031039527002,"Longitude":55.29298782348633}],"Radius":0,"LocationType":"marker","Icon":"needle-pink.png","HoverIcon":"niddle-green.png","Message":"","Tag":null},{"Coordinates":[{"Latitude":25.094615794984726,"Longitude":55.27788162231445}],"Radius":0,"LocationType":"marker","Icon":"niddle-green.png","HoverIcon":"needle-pink.png","Message":"","Tag":null}],
                 style: [
                         {
@@ -133,7 +133,8 @@
                 locationDelete: function (map, location) {
                     $(".status").html("Location deleted");
                 }
-            });
+           });
+            
         });
 
     </script>
